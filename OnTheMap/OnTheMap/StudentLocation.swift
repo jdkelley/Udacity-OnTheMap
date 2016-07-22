@@ -10,7 +10,7 @@ import Foundation
 
 struct StudentLocation {
     
-    let objectId: String
+    var objectId: String
     let uniqueKey: String
     let firstName: String
     let lastName: String
@@ -20,7 +20,7 @@ struct StudentLocation {
     let longitude: Double
    
     struct JSONKeys {
-        static let objectId: String = "objectID"
+        static let objectId: String = "objectId"
         static let uniqueKey: String = "uniqueKey"
         static let firstName: String = "firstName"
         static let lastName: String = "lastName"
@@ -28,7 +28,13 @@ struct StudentLocation {
         static let mediaURL: String = "mediaURL"
         static let latitude: String = "latitude"
         static let longitude: String = "longitude"
+        
+        static let createdAt: String = "createdAt"
+        static let updatedAt: String = "updatedAt"
+        static let ACL: String = "ACL"
     }
+    
+    // MARK: Deserialization
     
     static func studentLocation(from: [String: AnyObject]) -> StudentLocation? {
         guard   let object = from[JSONKeys.objectId] as? String,
@@ -47,12 +53,12 @@ struct StudentLocation {
         return StudentLocation(objectId: object, uniqueKey: unique, firstName: first, lastName: last, mapString: map, mediaURL: url, latitude: lat, longitude: lon)
     }
     
-    static func studentLocations(from: [AnyObject]) -> [StudentLocation]? {
-        guard  let array = from as? [[String: AnyObject]] else {
-            return nil
-        }
-        
-        return array.flatMap {self.studentLocation($0)}
+    static func studentLocations(from: [[String: AnyObject]]) -> [StudentLocation]? {
+        return from.flatMap {self.studentLocation($0)}
     }
+    
+    // MARK: Serialization 
+    
+    
     
 }
