@@ -25,6 +25,11 @@
 		968484FB1D4298980011D3AE /* ParseConvenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968484FA1D4298980011D3AE /* ParseConvenience.swift */; };
 		968485011D42A5630011D3AE /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968485001D42A5630011D3AE /* Session.swift */; };
 		968485031D42A6750011D3AE /* FBClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968485021D42A6750011D3AE /* FBClient.swift */; };
+		968485061D42B5EB0011D3AE /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968485051D42B5EB0011D3AE /* LoginViewController.swift */; };
+		968485091D4693FD0011D3AE /* NameAware.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968485081D4693FD0011D3AE /* NameAware.swift */; };
+		9684850B1D4697420011D3AE /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9684850A1D4697420011D3AE /* Color.swift */; };
+		9684850D1D46A2790011D3AE /* UITextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9684850C1D46A2790011D3AE /* UITextField.swift */; };
+		9684850F1D46A5FE0011D3AE /* NSURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9684850E1D46A5FE0011D3AE /* NSURL.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,6 +74,11 @@
 		968484FA1D4298980011D3AE /* ParseConvenience.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParseConvenience.swift; sourceTree = "<group>"; };
 		968485001D42A5630011D3AE /* Session.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
 		968485021D42A6750011D3AE /* FBClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FBClient.swift; sourceTree = "<group>"; };
+		968485051D42B5EB0011D3AE /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		968485081D4693FD0011D3AE /* NameAware.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NameAware.swift; sourceTree = "<group>"; };
+		9684850A1D4697420011D3AE /* Color.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
+		9684850C1D46A2790011D3AE /* UITextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UITextField.swift; sourceTree = "<group>"; };
+		9684850E1D46A5FE0011D3AE /* NSURL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSURL.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -161,6 +171,7 @@
 		968484E41D414D0E0011D3AE /* View */ = {
 			isa = PBXGroup;
 			children = (
+				9684850A1D4697420011D3AE /* Color.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -168,6 +179,8 @@
 		968484E51D414D130011D3AE /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				968485071D4693ED0011D3AE /* Protocols */,
+				968485051D42B5EB0011D3AE /* LoginViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -191,6 +204,8 @@
 			isa = PBXGroup;
 			children = (
 				968484F41D427FF50011D3AE /* String.swift */,
+				9684850C1D46A2790011D3AE /* UITextField.swift */,
+				9684850E1D46A5FE0011D3AE /* NSURL.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -212,6 +227,14 @@
 				968484BE1D37E34C0011D3AE /* LaunchScreen.storyboard */,
 			);
 			name = Assets;
+			sourceTree = "<group>";
+		};
+		968485071D4693ED0011D3AE /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				968485081D4693FD0011D3AE /* NameAware.swift */,
+			);
+			name = Protocols;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -345,9 +368,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				968485061D42B5EB0011D3AE /* LoginViewController.swift in Sources */,
 				968484FB1D4298980011D3AE /* ParseConvenience.swift in Sources */,
+				968485091D4693FD0011D3AE /* NameAware.swift in Sources */,
 				968484EA1D4268A60011D3AE /* UdacityClient.swift in Sources */,
 				968484F01D426B920011D3AE /* UdacityConstants.swift in Sources */,
+				9684850B1D4697420011D3AE /* Color.swift in Sources */,
+				9684850F1D46A5FE0011D3AE /* NSURL.swift in Sources */,
 				968484EC1D4268BE0011D3AE /* ParseClient.swift in Sources */,
 				968484F51D427FF50011D3AE /* String.swift in Sources */,
 				968485031D42A6750011D3AE /* FBClient.swift in Sources */,
@@ -357,6 +384,7 @@
 				968485011D42A5630011D3AE /* Session.swift in Sources */,
 				968484B61D37E34C0011D3AE /* AppDelegate.swift in Sources */,
 				968484F71D4292C80011D3AE /* HTTPMethod.swift in Sources */,
+				9684850D1D46A2790011D3AE /* UITextField.swift in Sources */,
 				968484F21D42727E0011D3AE /* ParseConstants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

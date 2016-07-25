@@ -8,4 +8,12 @@
 
 import Foundation
 
-
+class FBClient {
+    
+    var sessionID: String?
+    
+    // MARK: Singleton
+    
+    static let sharedInstance = FBClient()
+    private init() {}
+}

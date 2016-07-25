@@ -10,6 +10,7 @@ import Foundation
 
 extension UdacityClient {
     
+    static let SignUp: String = "https://www.udacity.com/account/auth#!/signup"
     
     struct Constants {
         static let AppID = "QrX47CA9cyuGewLdsL7o5Eb8iug6Em8ye0dnAbIr"
