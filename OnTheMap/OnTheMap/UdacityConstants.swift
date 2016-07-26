@@ -11,55 +11,50 @@ import Foundation
 extension UdacityClient {
     
     static let SignUp: String = "https://www.udacity.com/account/auth#!/signup"
-    
+
     struct Constants {
-        static let AppID = "QrX47CA9cyuGewLdsL7o5Eb8iug6Em8ye0dnAbIr"
-        static let APIKey = "QuWThTdiRmTux3YaDseUSEpUKo7aBYM737yKd4gY"
-        
         static let apiScheme = "https"
-        static let apiHost = "api.parse.com"
-        static let apiPath = "/1/classes"
+        static let apiHost = "www.udacity.com"
+        static let apiPath = "/api"
+    }
+    
+    struct Cookie {
+        static let name = "XSRF-TOKEN"
     }
     
     struct HeaderKey {
-        static let XParseAppID = "X-Parse-Application-Id"
-        static let XParseAPIKey = "X-Parse-REST-API-Key"
+        static let Accept = "Accept"
+        static let ContentType = "Content-Type"
+        static let XXSRFTOKEN = "X-XSRF-TOKEN"
+    }
+    
+    struct HeaderValue {
+        static let ApplicationJSON = "application/json"
     }
     
     struct Methods {
-        static let HTTPPOST = "POST"
-        static let HTTPGET = "GET"
-        static let StudentLocation = "/StudentLocation"
+        static let session = "/session"
     }
     
-    struct ParameterKeys {
-        static let limit = "limit"
-        static let skip = "skip"
-        static let order = "order"
-        static let Where = "where"
-        func whereClause(uniqueKey: String) -> String {
-            return "{\"\(OrderKeys.uniqueKey)\":\"\(uniqueKey)\"}"
-        }
-    }
-    
-    struct OrderKeys {
-        static let objectId: String = "objectID"
-        static let uniqueKey: String = "uniqueKey"
-        static let firstName: String = "firstName"
-        static let lastName: String = "lastName"
-        static let mapString: String = "mapString"
-        static let mediaURL: String = "mediaURL"
-        static let latitude: String = "latitude"
-        static let longitude: String = "longitude"
-        
-        static let createdAt: String = "createdAt"
-        static let updatedAt: String = "updatedAt"
-        static let ACL: String = "ACL"
+    struct POSTBody {
+        static let udacity = "udacity"
+        static let username = "username"
+        static let password = "password"
+        static let facebookmobile = "facebook_mobile"
+        static let access_token = "access_token"
     }
     
     struct JSONKeys {
-        static let results = "results"
+        static let account = "account"
+        static let session = "session"
+        static let registered = "registered"
+        static let key = "key"
+        static let id = "id"
+        static let expiration = "expiration"
     }
     
-    
+    struct Domain {
+        static let taskForPOST = "UdacityClient.taskForPOST"
+        static let convertDataWithCompletionHandler = "UdacityClient.convertDataWithCompletionHandler"
+    }
 }

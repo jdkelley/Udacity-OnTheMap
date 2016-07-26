@@ -1,5 +1,5 @@
 //
-//  Session.swift
+//  Account.swift
 //  OnTheMap
 //
 //  Created by Joshua Kelley on 7/22/16.
@@ -8,11 +8,12 @@
 
 import Foundation
 
-class OTMSession {
+class Account {
     
     var loggedin: Bool = false
     var firstName: String?
     var lastName: String?
     var accountID: String?
-    var facebook: Bool = false
+    var isFacebookSession: Bool = false
+    
 }

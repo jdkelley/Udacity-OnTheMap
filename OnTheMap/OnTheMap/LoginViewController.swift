@@ -11,8 +11,8 @@ import UIKit
 class LoginViewController: UIViewController {
     
     @IBOutlet weak var backgroundView: UIView!
-    @IBOutlet weak var emailTextField: UITextField!
-    @IBOutlet weak var passwordTextField: UITextField!
+    @IBOutlet weak var emailTextField: UITextField! { didSet { emailTextField.delegate = self }}
+    @IBOutlet weak var passwordTextField: UITextField! {didSet { passwordTextField.delegate = self }}
     @IBOutlet weak var loginButton: UIButton!
     @IBOutlet weak var fbButton: UIButton!
     @IBOutlet weak var signUPButton: UIButton!
@@ -22,7 +22,19 @@ class LoginViewController: UIViewController {
     }
     
     @IBAction func loginWithPassword(sender: UIButton) {
-        //
+        guard   let email = emailTextField.text,
+                let pw = passwordTextField.text else {
+                // pulse and warn user
+                return
+        }
+        UdacityClient.sharedInstance.loginWithPassword((email, pw)) { (success, errorString) in
+            if success {
+                UI.performUIUpdate {
+                    // TODO: Clear TextFields and transition
+                    UdacityClient.sharedInstance.account.loggedin = true // completion handler
+                }
+            }
+        }
     }
     
     @IBAction func signUp(sender: UIButton) {
@@ -34,8 +46,18 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setBackgroundGradient()
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
         setTextFieldPlaceholders()
         padMultipleTextFields(emailTextField, passwordTextField)
+    }
+    
+    // MARK: Login Flow
+    
+    func login() {
         
     }
     
@@ -59,6 +81,16 @@ class LoginViewController: UIViewController {
         for textfield in textfields {
             textfield.leftPad(by: 8)
         }
+    }
+}
+
+extension LoginViewController : UITextFieldDelegate {
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        if textField == passwordTextField && (emailTextField.text ?? "").characters.count > 0 {
+            login()
+        }
+        return true
     }
 }
 

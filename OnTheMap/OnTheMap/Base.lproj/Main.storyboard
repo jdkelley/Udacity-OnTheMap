@@ -91,7 +91,7 @@
                                         <color key="backgroundColor" red="1" green="0.99607843139999996" blue="0.98823529409999999" alpha="0.5" colorSpace="calibratedRGB"/>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <color key="textColor" red="0.90196078431372551" green="0.15294117647058825" blue="0.039215686274509803" alpha="1" colorSpace="calibratedRGB"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="i6b-rx-hQZ">
@@ -99,7 +99,7 @@
                                         <color key="backgroundColor" white="1" alpha="0.5" colorSpace="calibratedWhite"/>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <color key="textColor" red="0.90196078431372551" green="0.15294117647058825" blue="0.039215686274509803" alpha="1" colorSpace="calibratedRGB"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                         <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Nh-Vy-Vsy">
@@ -108,10 +108,13 @@
                                         <state key="normal" title="Login">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <connections>
+                                            <segue destination="kx3-nQ-Mk1" kind="show" id="qjA-r6-F03"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7CW-mP-W0y">
                                         <rect key="frame" x="0.0" y="310" width="520" height="35"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                         <state key="normal" title="Don't have an account? Sign Up">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -166,7 +169,29 @@
                     <view key="view" contentMode="scaleToFill" id="wae-4f-fTo">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Vvx-R6-NR4">
+                                <rect key="frame" x="0.0" y="20" width="600" height="531"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="dX3-3D-IpJ">
+                                        <rect key="frame" x="0.0" y="28" width="600" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="dX3-3D-IpJ" id="SAV-Xe-6jj">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
                         <color key="backgroundColor" white="0.11407791940789473" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Ab7-yh-T7O" firstAttribute="top" secondItem="Vvx-R6-NR4" secondAttribute="bottom" id="RGk-LY-c89"/>
+                            <constraint firstItem="Vvx-R6-NR4" firstAttribute="leading" secondItem="wae-4f-fTo" secondAttribute="leading" id="lIa-gL-zyx"/>
+                            <constraint firstAttribute="trailing" secondItem="Vvx-R6-NR4" secondAttribute="trailing" id="t07-aI-RwY"/>
+                            <constraint firstItem="Vvx-R6-NR4" firstAttribute="top" secondItem="SJr-1D-iwV" secondAttribute="bottom" id="vm2-xH-ubZ"/>
+                        </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="List" image="list" id="aeE-vG-WkK"/>
                 </viewController>
@@ -185,7 +210,18 @@
                     <view key="view" contentMode="scaleToFill" id="w6b-aV-YOC">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="jxP-zN-IMM">
+                                <rect key="frame" x="0.0" y="20" width="600" height="531"/>
+                            </mapView>
+                        </subviews>
                         <color key="backgroundColor" red="0.1137254902" green="0.45882352939999999" blue="0.73725490199999999" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="i8u-6v-eh2" firstAttribute="top" secondItem="jxP-zN-IMM" secondAttribute="bottom" id="DgP-2s-CLA"/>
+                            <constraint firstItem="jxP-zN-IMM" firstAttribute="top" secondItem="DBI-6J-9Jg" secondAttribute="bottom" id="kE1-iV-s7I"/>
+                            <constraint firstAttribute="trailing" secondItem="jxP-zN-IMM" secondAttribute="trailing" id="nqf-T9-MVq"/>
+                            <constraint firstItem="jxP-zN-IMM" firstAttribute="leading" secondItem="w6b-aV-YOC" secondAttribute="leading" id="xJ8-G6-I8P"/>
+                        </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Map" image="map" id="9O0-TP-lMw"/>
                 </viewController>

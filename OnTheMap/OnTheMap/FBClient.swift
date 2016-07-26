@@ -16,4 +16,8 @@ class FBClient {
     
     static let sharedInstance = FBClient()
     private init() {}
+    
+    func login() {
+        
+    }
 }

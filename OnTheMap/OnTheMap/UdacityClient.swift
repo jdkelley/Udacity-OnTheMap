@@ -10,8 +10,79 @@ import Foundation
 
 class UdacityClient {
     
+    let account = Account()
+    var sessionID: String?
+    
+    
     // MARK: - Singleton
     static let sharedInstance = UdacityClient()
     private init() {}
     
+    // MARK: POST
+    
+    func taskForPOST(method: String, jsonBody: String, completionHandlerForPost: (result: AnyObject?, error: NSError?) -> Void) -> NSURLSessionDataTask {
+        
+        let request = NSMutableURLRequest(URL: udacityURLWith(pathExtention: Methods.session))
+        request.HTTPMethod = HTTPMethod.POST.rawValue
+        request.addValue(HeaderValue.ApplicationJSON, forHTTPHeaderField: HeaderKey.Accept)
+        request.addValue(HeaderValue.ApplicationJSON, forHTTPHeaderField: HeaderKey.ContentType)
+        request.HTTPBody = jsonBody.dataUsingEncoding(NSUTF8StringEncoding)
+        
+        let task = NSURLSession.sharedSession().dataTaskWithRequest(request) { (data, response, error) in
+            func sendError(error: String, code: OTMError) {
+                NSLog(error)
+                let userInfo = [NSLocalizedDescriptionKey : error]
+                completionHandlerForPost(result: nil, error: NSError(domain: Domain.taskForPOST, code: code.code, userInfo: userInfo))
+            }
+            
+            guard error == nil else {
+                sendError("There was an error with your request", code: .ErrorNotNil)
+                return
+            }
+            
+            guard let statusCode = (response as? NSHTTPURLResponse)?.statusCode where statusCode >= 200  && statusCode < 300 else {
+                sendError("Request returned something other than a 2xx response.", code: .HTTPResponse(code: (response as? NSHTTPURLResponse)?.statusCode))
+                return
+            }
+            
+            guard let data = data?.subdataWithRange(NSMakeRange(5, data!.length - 5)) else {
+                sendError("No Data was returned from your request.", code: .NoData)
+                return
+            }
+            self.convertDataWithCompletionHandler(data: data, completionHandlerForConvertData: completionHandlerForPost)
+        }
+        
+        task.resume()
+        return task
+    }
+    
+    // MARK: DELETE
+    
+     //func taskForDELETE(method: String, )
+    
+
+
+    
+    private func convertDataWithCompletionHandler(data data: NSData, completionHandlerForConvertData: (result: AnyObject?, NSError?) -> Void) {
+        var parsedResult: AnyObject!
+        do {
+            parsedResult = try NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments)
+        } catch {
+            let userInfo = [NSLocalizedDescriptionKey : "Could not parse the data as JSON: \(data)"]
+            completionHandlerForConvertData(result: nil, NSError(domain: Domain.convertDataWithCompletionHandler, code: OTMError.UnconvertableToJSON.code, userInfo: userInfo))
+        }
+        completionHandlerForConvertData(result: parsedResult, nil)
+    }
+    
+    // MARK: Helpers 
+    
+    private func udacityURLWith(pathExtention path: String? = nil) -> NSURL {
+        let components = NSURLComponents()
+        components.scheme = Constants.apiScheme
+        components.host = Constants.apiHost
+        components.path = Constants.apiPath + (path ?? "")
+        
+        return components.URL!
+    }
+
 }

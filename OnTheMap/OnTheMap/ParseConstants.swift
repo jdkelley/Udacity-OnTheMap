@@ -30,8 +30,6 @@ extension ParseClient {
     }
     
     struct Methods {
-        static let HTTPPOST = "POST"
-        static let HTTPGET = "GET"
         static let StudentLocation = "/StudentLocation"
         static let StudentLocationObjectID = "/StudentLocation/{objectId}"
     }
@@ -51,6 +49,7 @@ extension ParseClient {
     }
     
     struct OrderKeys {
+        static let descending: String = "-"
         static let objectId: String = "objectId"
         static let uniqueKey: String = "uniqueKey"
         static let firstName: String = "firstName"
