@@ -32,36 +32,49 @@ extension UdacityClient {
         }
     }
     
-    func getSessionInfo(data: AnyObject?, completionHandlerForSession: (success: Bool, errorString: String?) -> Void) {
-        guard let json = data as? [[String: AnyObject]] else {
-            completionHandlerForSession(success: false, errorString: "Data did not come back in the right format")
+    func getSessionInfo(data: AnyObject!, completionHandlerForSession: (success: Bool, errorString: String?) -> Void) {
+        guard let json = data as? [String: AnyObject] else {
+            completionHandlerForSession(success: false, errorString: "Data did not come back in the right format \(data)")
             return
         }
-        
-        for object in json where (object[JSONKeys.account] as? [String: AnyObject]) != nil {
-            guard   let account = object[JSONKeys.account] as? [String: AnyObject],
-                    let registered = account[JSONKeys.registered] as? Bool,
-                    let key = account[JSONKeys.key] as? String else {
-                    completionHandlerForSession(success: false, errorString: "Could not parse account from response")
-                    return
-            }
-            if registered {
-                self.account.accountID = key
-            } else {
-                completionHandlerForSession(success: false, errorString: "Cannot login with unregistered user")
+        guard   let account = json[JSONKeys.account] as? [String: AnyObject],
+                let session = json[JSONKeys.session] as? [String: AnyObject],
+                let sessionid = session[JSONKeys.id] as? String,
+                let registered = account[JSONKeys.registered] as? Bool,
+                let key = account[JSONKeys.key] as? String else {
+                completionHandlerForSession(success: false, errorString: "Could not parse session information from response \(data)")
                 return
-            }
         }
+        if registered {
+            self.account.accountID = key
+        } else {
+            completionHandlerForSession(success: false, errorString: "Cannot login with unregistered user")
+            return
+        }
+        self.sessionID = sessionid
         
-        for object in json where (object[JSONKeys.session] as? [String: AnyObject]) != nil {
-            guard   let session = object[JSONKeys.session] as? [String: AnyObject],
-                    let sessionid = session[JSONKeys.id] as? String else {
-                    completionHandlerForSession(success: false, errorString: "Cannot parse session.")
-                    return
-            }
-            self.sessionID = sessionid
-        }
+        getUserData()
+        
         completionHandlerForSession(success: true, errorString: nil)
+    }
+    
+    func getUserData() {
+        let method = Methods.users.substitute(key: URLKey.userid, forValue: self.account.accountID!) ?? ""
+        self.taskForGET(method, completionHandlerForGET: { (result, error) in
+            if let _ = error {
+                NSLog("There was an error downloading the user info the the current user.")
+            } else {
+                if  let user = result as? [String: AnyObject],
+                    let last = user[JSONKeys.lastname] as? String,
+                    let first = user[JSONKeys.firstname] as? String {
+                    self.account.firstName = first
+                    self.account.lastName = last
+                } else {
+                    NSLog("There was an error downloading the user info the the current user.")
+                }
+            }
+        })
+        
     }
   
     // MARK: Helpers

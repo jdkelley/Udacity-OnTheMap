@@ -10,7 +10,7 @@ import Foundation
 
 extension UdacityClient {
     
-    static let SignUp: String = "https://www.udacity.com/account/auth#!/signup"
+    static let SignUp = "https://www.udacity.com/account/auth#!/signup"
 
     struct Constants {
         static let apiScheme = "https"
@@ -34,6 +34,11 @@ extension UdacityClient {
     
     struct Methods {
         static let session = "/session"
+        static let users = "/users/{user_id}"
+    }
+    
+    struct URLKey {
+        static let userid = "user_id"
     }
     
     struct POSTBody {
@@ -51,10 +56,13 @@ extension UdacityClient {
         static let key = "key"
         static let id = "id"
         static let expiration = "expiration"
+        static let lastname = "last_name"
+        static let firstname = "first_name"
     }
     
     struct Domain {
         static let taskForPOST = "UdacityClient.taskForPOST"
+        static let taskForGET = "UdacityClient.taskForGET"
         static let convertDataWithCompletionHandler = "UdacityClient.convertDataWithCompletionHandler"
     }
 }

@@ -18,6 +18,40 @@ class UdacityClient {
     static let sharedInstance = UdacityClient()
     private init() {}
     
+    // MARK: GET
+    
+    func taskForGET(method: String, completionHandlerForGET: (result: AnyObject?, error: NSError?) -> Void) -> NSURLSessionDataTask {
+        
+        let request = NSMutableURLRequest(URL: udacityURLWith(pathExtention: method))
+        let task = NSURLSession.sharedSession().dataTaskWithRequest(request) { (data, response, error) in
+            func sendError(error: String, code: OTMError) {
+                NSLog(error)
+                let userInfo = [NSLocalizedDescriptionKey : error]
+                completionHandlerForGET(result: nil, error: NSError(domain: Domain.taskForGET, code: code.code, userInfo: userInfo))
+            }
+            
+            
+            guard error == nil else {
+                sendError("There was an error with your request", code: .ErrorNotNil)
+                return
+            }
+            
+            guard let statusCode = (response as? NSHTTPURLResponse)?.statusCode where statusCode >= 200  && statusCode < 300 else {
+                sendError("Request returned something other than a 2xx response.", code: .HTTPResponse(code: (response as? NSHTTPURLResponse)?.statusCode))
+                return
+            }
+            
+            guard let data = data?.subdataWithRange(NSMakeRange(5, data!.length - 5)) else {
+                sendError("No Data was returned from your request.", code: .NoData)
+                return
+            }
+            self.convertDataWithCompletionHandler(data: data, completionHandlerForConvertData: completionHandlerForGET)
+            
+        }
+        task.resume()
+        return task
+    }
+    
     // MARK: POST
     
     func taskForPOST(method: String, jsonBody: String, completionHandlerForPost: (result: AnyObject?, error: NSError?) -> Void) -> NSURLSessionDataTask {
@@ -58,7 +92,7 @@ class UdacityClient {
     
     // MARK: DELETE
     
-     //func taskForDELETE(method: String, )
+    //func taskForDELETE(method: String, )
     
 
 
@@ -81,7 +115,6 @@ class UdacityClient {
         components.scheme = Constants.apiScheme
         components.host = Constants.apiHost
         components.path = Constants.apiPath + (path ?? "")
-        
         return components.URL!
     }
 

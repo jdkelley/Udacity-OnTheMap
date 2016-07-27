@@ -109,7 +109,7 @@
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
-                                            <segue destination="kx3-nQ-Mk1" kind="show" id="qjA-r6-F03"/>
+                                            <action selector="loginWithPassword:" destination="BYZ-38-t0r" eventType="touchUpInside" id="zE2-qM-wDI"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7CW-mP-W0y">
@@ -129,6 +129,9 @@
                                         <state key="normal" title="Sign in with Facebook">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <connections>
+                                            <action selector="loginWithFB:" destination="BYZ-38-t0r" eventType="touchDragInside" id="49v-BK-htB"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -248,7 +251,6 @@
         <!--Tab Bar Controller-->
         <scene sceneID="2Ed-H3-F7X">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="She-rL-m7M" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tabBarController id="Y3k-S9-wwb" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="xvD-OX-koO"/>
                     <nil key="simulatedTopBarMetrics"/>
@@ -262,6 +264,7 @@
                         <segue destination="amD-IQ-aPF" kind="relationship" relationship="viewControllers" id="QHZ-dO-2Os"/>
                     </connections>
                 </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="She-rL-m7M" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1694" y="418"/>
         </scene>

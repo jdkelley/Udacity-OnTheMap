@@ -18,7 +18,16 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var signUPButton: UIButton!
 
     @IBAction func loginWithFB(sender: UIButton) {
-        //
+        // call FB SDK
+        // on return use token with
+//        UdacityClient.sharedInstance.loginWithFB(token) { (success, errorString) in
+//            if success {
+//                UI.performUIUpdate {
+//                    // TODO: Clear TextFields and transition
+//                    UdacityClient.sharedInstance.account.loggedin = true // completion handler
+//                }
+//            }
+//        }
     }
     
     @IBAction func loginWithPassword(sender: UIButton) {
@@ -28,11 +37,15 @@ class LoginViewController: UIViewController {
                 return
         }
         UdacityClient.sharedInstance.loginWithPassword((email, pw)) { (success, errorString) in
+            
             if success {
                 UI.performUIUpdate {
                     // TODO: Clear TextFields and transition
                     UdacityClient.sharedInstance.account.loggedin = true // completion handler
                 }
+                print("Made it!!! SessionID: \(UdacityClient.sharedInstance.sessionID)")
+            } else {
+                print("not successful? - \(errorString ?? "")")
             }
         }
     }
@@ -91,6 +104,11 @@ extension LoginViewController : UITextFieldDelegate {
             login()
         }
         return true
+    }
+    
+    // When you touch off the keyboard, dismiss keyboard
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        self.view.endEditing(true)
     }
 }
 
