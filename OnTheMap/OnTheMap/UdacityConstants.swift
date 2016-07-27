@@ -63,6 +63,7 @@ extension UdacityClient {
     struct Domain {
         static let taskForPOST = "UdacityClient.taskForPOST"
         static let taskForGET = "UdacityClient.taskForGET"
+        static let taskForDELETE = "UdacityClient.taskForDELETE"
         static let convertDataWithCompletionHandler = "UdacityClient.convertDataWithCompletionHandler"
     }
 }

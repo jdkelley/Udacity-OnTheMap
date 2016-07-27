@@ -92,10 +92,44 @@ class UdacityClient {
     
     // MARK: DELETE
     
-    //func taskForDELETE(method: String, )
-    
-
-
+    func taskForDELETE(method: String, completionHandlerForDELETE: (result: AnyObject?, error: NSError?) -> Void) -> NSURLSessionDataTask {
+        let request = NSMutableURLRequest(URL: udacityURLWith(pathExtention: Methods.session))
+        request.HTTPMethod = HTTPMethod.DELETE.rawValue
+        var xsrfCookie: NSHTTPCookie? = nil
+        let sharedCookieStorage = NSHTTPCookieStorage.sharedHTTPCookieStorage()
+        for cookie in sharedCookieStorage.cookies! {
+            if cookie.name == Cookie.name { xsrfCookie = cookie }
+        }
+        if let xsrfCookie = xsrfCookie {
+            request.setValue(xsrfCookie.value, forHTTPHeaderField: HeaderKey.XXSRFTOKEN)
+        }
+        
+        let task = NSURLSession.sharedSession().dataTaskWithRequest(request) { (data, response, error) in
+            func sendError(error: String, code: OTMError) {
+                NSLog(error)
+                let userInfo = [NSLocalizedDescriptionKey : error]
+                completionHandlerForDELETE(result: nil, error: NSError(domain: Domain.taskForDELETE, code: code.code, userInfo: userInfo))
+            }
+            
+            guard error == nil else {
+                sendError("There was an error with your request.", code: .ErrorNotNil)
+                return
+            }
+            
+            guard let statusCode = (response as? NSHTTPURLResponse)?.statusCode where statusCode >= 200 && statusCode < 300 else {
+                sendError("Request returned something other than a 2xx response.", code: .HTTPResponse(code: (response as? NSHTTPURLResponse)?.statusCode))
+                return
+            }
+            
+            guard let _ = data?.subdataWithRange(NSMakeRange(5, data!.length - 5)) else {
+                sendError("No data was returned from your request.", code: .NoData)
+                return
+            }
+        }
+        
+        task.resume()
+        return task
+    }
     
     private func convertDataWithCompletionHandler(data data: NSData, completionHandlerForConvertData: (result: AnyObject?, NSError?) -> Void) {
         var parsedResult: AnyObject!

@@ -39,7 +39,7 @@
                         </constraints>
                     </view>
                     <toolbarItems>
-                        <barButtonItem title="Item" id="vA6-oR-WOM"/>
+                        <barButtonItem image="move-left" id="vA6-oR-WOM"/>
                         <barButtonItem systemItem="flexibleSpace" id="uGC-a2-U1L"/>
                         <barButtonItem title="Item" id="tpE-M6-YeX"/>
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="Pb4-Vu-Mbg"/>
@@ -272,6 +272,7 @@
     <resources>
         <image name="list" width="32" height="32"/>
         <image name="map" width="32" height="32"/>
+        <image name="move-left" width="25" height="25"/>
         <image name="udacity" width="256" height="256"/>
     </resources>
 </document>
