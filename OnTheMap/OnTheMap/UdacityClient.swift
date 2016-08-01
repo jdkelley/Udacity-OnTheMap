@@ -24,7 +24,7 @@ class UdacityClient {
 
         let request = NSMutableURLRequest(URL: udacityURLWith(pathExtention: method))
         let task = NSURLSession.sharedSession().dataTaskWithRequest(request) { (data, response, error) in
-            func sendError(error: String, code: OTMError) {
+            func sendError(error: String, code: OTMNetworkError) {
                 NSLog(error)
                 let userInfo = [NSLocalizedDescriptionKey : error]
                 completionHandlerForGET(result: nil, error: NSError(domain: Domain.taskForGET, code: code.code, userInfo: userInfo))
@@ -66,7 +66,7 @@ class UdacityClient {
         request.HTTPBody = jsonBody.dataUsingEncoding(NSUTF8StringEncoding)
         
         let task = NSURLSession.sharedSession().dataTaskWithRequest(request) { (data, response, error) in
-            func sendError(error: String, code: OTMError) {
+            func sendError(error: String, code: OTMNetworkError) {
                 NSLog(error)
                 let userInfo = [NSLocalizedDescriptionKey : error]
                 completionHandlerForPost(result: nil, error: NSError(domain: Domain.taskForPOST, code: code.code, userInfo: userInfo))
@@ -108,7 +108,7 @@ class UdacityClient {
         }
         
         let task = NSURLSession.sharedSession().dataTaskWithRequest(request) { (data, response, error) in
-            func sendError(error: String, code: OTMError) {
+            func sendError(error: String, code: OTMNetworkError) {
                 NSLog(error)
                 let userInfo = [NSLocalizedDescriptionKey : error]
                 completionHandlerForDELETE(result: nil, error: NSError(domain: Domain.taskForDELETE, code: code.code, userInfo: userInfo))
@@ -140,7 +140,7 @@ class UdacityClient {
             parsedResult = try NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments)
         } catch {
             let userInfo = [NSLocalizedDescriptionKey : "Could not parse the data as JSON: \(data)"]
-            completionHandlerForConvertData(result: nil, NSError(domain: Domain.convertDataWithCompletionHandler, code: OTMError.UnconvertableToJSON.code, userInfo: userInfo))
+            completionHandlerForConvertData(result: nil, NSError(domain: Domain.convertDataWithCompletionHandler, code: OTMNetworkError.UnconvertableToJSON.code, userInfo: userInfo))
         }
         completionHandlerForConvertData(result: parsedResult, nil)
     }

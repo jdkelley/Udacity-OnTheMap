@@ -44,12 +44,6 @@ class LoginViewController: UIViewController {
         UdacityClient.sharedInstance.loginWithPassword((email, pw)) { (success, errorString) in
             
             if success {
-                UI.performUIUpdate {
-                    self.spinner.stopAnimating()
-                    self.enableUI(to: true)
-                    // TODO: Clear TextFields and transition
-                    UdacityClient.sharedInstance.account.loggedin = true // completion handler
-                }
                 print("Made it!!! SessionID: \(UdacityClient.sharedInstance.sessionID)")
                 print("Unique Key: \(UdacityClient.sharedInstance.account.accountID)")
                 print("First Name: \(UdacityClient.sharedInstance.account.firstName)")
@@ -69,12 +63,19 @@ class LoginViewController: UIViewController {
                         UdacityClient.sharedInstance.account.hasPreviousUpload = false
                     }
                 })
-            } else {
+                
                 UI.performUIUpdate {
                     self.spinner.stopAnimating()
                     self.enableUI(to: true)
                     // TODO: Clear TextFields and transition
                     UdacityClient.sharedInstance.account.loggedin = true // completion handler
+                }
+            } else {
+                UI.performUIUpdate {
+                    self.spinner.stopAnimating()
+                    self.enableUI(to: true)
+                    // TODO: Clear TextFields and transition
+                    UdacityClient.sharedInstance.account.loggedin = false // completion handler
                 }
                 print("not successful? - \(errorString ?? "")")
             }
@@ -100,6 +101,8 @@ class LoginViewController: UIViewController {
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+        self.tabBarController?.tabBar.hidden = true
+        
         spinner.hidesWhenStopped = true
         spinner.stopAnimating()
         setTextFieldPlaceholders()

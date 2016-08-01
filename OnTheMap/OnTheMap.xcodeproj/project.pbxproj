@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9679D9F11D4FB8850044694B /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9679D9F01D4FB8850044694B /* Constants.swift */; };
+		9679D9F51D4FBA670044694B /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9679D9F41D4FBA670044694B /* MapViewController.swift */; };
+		9679D9F71D4FBA8B0044694B /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9679D9F61D4FBA8B0044694B /* ListViewController.swift */; };
+		9679D9F91D4FBCCD0044694B /* StudentDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9679D9F81D4FBCCD0044694B /* StudentDataSource.swift */; };
+		9679D9FB1D4FC2A80044694B /* MKPointAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9679D9FA1D4FC2A80044694B /* MKPointAnnotation.swift */; };
 		968484B61D37E34C0011D3AE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968484B51D37E34C0011D3AE /* AppDelegate.swift */; };
 		968484B81D37E34C0011D3AE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968484B71D37E34C0011D3AE /* ViewController.swift */; };
 		968484BB1D37E34C0011D3AE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 968484B91D37E34C0011D3AE /* Main.storyboard */; };
@@ -30,7 +35,7 @@
 		9684850B1D4697420011D3AE /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9684850A1D4697420011D3AE /* Color.swift */; };
 		9684850D1D46A2790011D3AE /* UITextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9684850C1D46A2790011D3AE /* UITextField.swift */; };
 		9684850F1D46A5FE0011D3AE /* NSURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9684850E1D46A5FE0011D3AE /* NSURL.swift */; };
-		968485171D47CC6A0011D3AE /* OTMError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968485161D47CC6A0011D3AE /* OTMError.swift */; };
+		968485171D47CC6A0011D3AE /* OTMNetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968485161D47CC6A0011D3AE /* OTMNetworkError.swift */; };
 		968485191D47E6550011D3AE /* UI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968485181D47E6550011D3AE /* UI.swift */; };
 /* End PBXBuildFile section */
 
@@ -52,6 +57,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9679D9F01D4FB8850044694B /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		9679D9F41D4FBA670044694B /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		9679D9F61D4FBA8B0044694B /* ListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
+		9679D9F81D4FBCCD0044694B /* StudentDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentDataSource.swift; sourceTree = "<group>"; };
+		9679D9FA1D4FC2A80044694B /* MKPointAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MKPointAnnotation.swift; sourceTree = "<group>"; };
 		968484B21D37E34C0011D3AE /* OnTheMap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OnTheMap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		968484B51D37E34C0011D3AE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		968484B71D37E34C0011D3AE /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -81,7 +91,7 @@
 		9684850A1D4697420011D3AE /* Color.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		9684850C1D46A2790011D3AE /* UITextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UITextField.swift; sourceTree = "<group>"; };
 		9684850E1D46A5FE0011D3AE /* NSURL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSURL.swift; sourceTree = "<group>"; };
-		968485161D47CC6A0011D3AE /* OTMError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OTMError.swift; sourceTree = "<group>"; };
+		968485161D47CC6A0011D3AE /* OTMNetworkError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OTMNetworkError.swift; sourceTree = "<group>"; };
 		968485181D47E6550011D3AE /* UI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UI.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -168,6 +178,7 @@
 				968484FD1D4298CE0011D3AE /* Model */,
 				968484F31D427FE60011D3AE /* Extensions */,
 				968484E81D4268910011D3AE /* Networking */,
+				9679D9F01D4FB8850044694B /* Constants.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -185,6 +196,9 @@
 			children = (
 				968485071D4693ED0011D3AE /* Protocols */,
 				968485051D42B5EB0011D3AE /* LoginViewController.swift */,
+				9679D9F41D4FBA670044694B /* MapViewController.swift */,
+				9679D9F61D4FBA8B0044694B /* ListViewController.swift */,
+				9679D9F81D4FBCCD0044694B /* StudentDataSource.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -200,7 +214,7 @@
 				968484F11D42727E0011D3AE /* ParseConstants.swift */,
 				968484FA1D4298980011D3AE /* ParseConvenience.swift */,
 				968485021D42A6750011D3AE /* FBClient.swift */,
-				968485161D47CC6A0011D3AE /* OTMError.swift */,
+				968485161D47CC6A0011D3AE /* OTMNetworkError.swift */,
 			);
 			name = Networking;
 			sourceTree = "<group>";
@@ -211,6 +225,7 @@
 				968484F41D427FF50011D3AE /* String.swift */,
 				9684850C1D46A2790011D3AE /* UITextField.swift */,
 				9684850E1D46A5FE0011D3AE /* NSURL.swift */,
+				9679D9FA1D4FC2A80044694B /* MKPointAnnotation.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -228,9 +243,9 @@
 		968485041D42B2960011D3AE /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				968484BE1D37E34C0011D3AE /* LaunchScreen.storyboard */,
 				968484B91D37E34C0011D3AE /* Main.storyboard */,
 				968484BC1D37E34C0011D3AE /* Assets.xcassets */,
-				968484BE1D37E34C0011D3AE /* LaunchScreen.storyboard */,
 			);
 			name = Assets;
 			sourceTree = "<group>";
@@ -378,15 +393,20 @@
 				968484FB1D4298980011D3AE /* ParseConvenience.swift in Sources */,
 				968485091D4693FD0011D3AE /* NameAware.swift in Sources */,
 				968484EA1D4268A60011D3AE /* UdacityClient.swift in Sources */,
+				9679D9F91D4FBCCD0044694B /* StudentDataSource.swift in Sources */,
 				968484F01D426B920011D3AE /* UdacityConstants.swift in Sources */,
 				9684850B1D4697420011D3AE /* Color.swift in Sources */,
 				968485191D47E6550011D3AE /* UI.swift in Sources */,
 				9684850F1D46A5FE0011D3AE /* NSURL.swift in Sources */,
 				968484EC1D4268BE0011D3AE /* ParseClient.swift in Sources */,
-				968485171D47CC6A0011D3AE /* OTMError.swift in Sources */,
+				968485171D47CC6A0011D3AE /* OTMNetworkError.swift in Sources */,
 				968484F51D427FF50011D3AE /* String.swift in Sources */,
+				9679D9F51D4FBA670044694B /* MapViewController.swift in Sources */,
+				9679D9FB1D4FC2A80044694B /* MKPointAnnotation.swift in Sources */,
+				9679D9F11D4FB8850044694B /* Constants.swift in Sources */,
 				968485031D42A6750011D3AE /* FBClient.swift in Sources */,
 				968484E71D414DD70011D3AE /* StudentLocation.swift in Sources */,
+				9679D9F71D4FBA8B0044694B /* ListViewController.swift in Sources */,
 				968484B81D37E34C0011D3AE /* ViewController.swift in Sources */,
 				968484EE1D4268E00011D3AE /* UdacityConvenience.swift in Sources */,
 				968485011D42A5630011D3AE /* Account.swift in Sources */,

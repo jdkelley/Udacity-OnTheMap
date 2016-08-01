@@ -1,5 +1,5 @@
 //
-//  OTMError.swift
+//  OTMNetworkError.swift
 //  OnTheMap
 //
 //  Created by Joshua Kelley on 7/26/16.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum OTMError: ErrorType {
+enum OTMNetworkError: ErrorType {
     case ErrorNotNil
     case NoData
     case HTTPResponse(code: Int?)
