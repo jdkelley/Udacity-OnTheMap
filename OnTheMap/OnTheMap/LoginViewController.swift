@@ -16,7 +16,8 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var loginButton: UIButton!
     @IBOutlet weak var fbButton: UIButton!
     @IBOutlet weak var signUPButton: UIButton!
-
+    @IBOutlet weak var spinner: UIActivityIndicatorView!
+    
     @IBAction func loginWithFB(sender: UIButton) {
         // call FB SDK
         // on return use token with
@@ -31,23 +32,59 @@ class LoginViewController: UIViewController {
     }
     
     @IBAction func loginWithPassword(sender: UIButton) {
+        print("presed")
         guard   let email = emailTextField.text,
                 let pw = passwordTextField.text else {
                 // pulse and warn user
+                    print("no password")
                 return
         }
+        spinner.startAnimating()
+        enableUI(to: false)
         UdacityClient.sharedInstance.loginWithPassword((email, pw)) { (success, errorString) in
             
             if success {
                 UI.performUIUpdate {
+                    self.spinner.stopAnimating()
+                    self.enableUI(to: true)
                     // TODO: Clear TextFields and transition
                     UdacityClient.sharedInstance.account.loggedin = true // completion handler
                 }
                 print("Made it!!! SessionID: \(UdacityClient.sharedInstance.sessionID)")
+                print("Unique Key: \(UdacityClient.sharedInstance.account.accountID)")
+                print("First Name: \(UdacityClient.sharedInstance.account.firstName)")
+                print("LastName:: \(UdacityClient.sharedInstance.account.lastName)")
+                
+                guard let id = UdacityClient.sharedInstance.account.accountID else {
+                    print("AccountID Not Found")
+                    return
+                }
+                
+                ParseClient.sharedInstance.previousLocation(uniqueKey: id, completionHandlerForPreviousLocation: { (exists, errorString) in
+                    if exists {
+                        print("Exists")
+                        UdacityClient.sharedInstance.account.hasPreviousUpload = true
+                    } else {
+                        print("Does not exist")
+                        UdacityClient.sharedInstance.account.hasPreviousUpload = false
+                    }
+                })
             } else {
+                UI.performUIUpdate {
+                    self.spinner.stopAnimating()
+                    self.enableUI(to: true)
+                    // TODO: Clear TextFields and transition
+                    UdacityClient.sharedInstance.account.loggedin = true // completion handler
+                }
                 print("not successful? - \(errorString ?? "")")
             }
         }
+    }
+    
+    func enableUI(to to: Bool) {
+        loginButton.enabled = to
+        emailTextField.enabled = to
+        passwordTextField.enabled = to
     }
     
     @IBAction func signUp(sender: UIButton) {
@@ -63,7 +100,8 @@ class LoginViewController: UIViewController {
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        
+        spinner.hidesWhenStopped = true
+        spinner.stopAnimating()
         setTextFieldPlaceholders()
         padMultipleTextFields(emailTextField, passwordTextField)
     }

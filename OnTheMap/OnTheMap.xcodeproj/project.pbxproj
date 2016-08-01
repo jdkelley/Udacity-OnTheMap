@@ -30,9 +30,6 @@
 		9684850B1D4697420011D3AE /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9684850A1D4697420011D3AE /* Color.swift */; };
 		9684850D1D46A2790011D3AE /* UITextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9684850C1D46A2790011D3AE /* UITextField.swift */; };
 		9684850F1D46A5FE0011D3AE /* NSURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9684850E1D46A5FE0011D3AE /* NSURL.swift */; };
-		968485111D46AC670011D3AE /* TabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968485101D46AC670011D3AE /* TabViewController.swift */; };
-		968485131D46AC9B0011D3AE /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968485121D46AC9B0011D3AE /* MapViewController.swift */; };
-		968485151D46ACC00011D3AE /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968485141D46ACC00011D3AE /* ListViewController.swift */; };
 		968485171D47CC6A0011D3AE /* OTMError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968485161D47CC6A0011D3AE /* OTMError.swift */; };
 		968485191D47E6550011D3AE /* UI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968485181D47E6550011D3AE /* UI.swift */; };
 /* End PBXBuildFile section */
@@ -84,9 +81,6 @@
 		9684850A1D4697420011D3AE /* Color.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		9684850C1D46A2790011D3AE /* UITextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UITextField.swift; sourceTree = "<group>"; };
 		9684850E1D46A5FE0011D3AE /* NSURL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSURL.swift; sourceTree = "<group>"; };
-		968485101D46AC670011D3AE /* TabViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabViewController.swift; sourceTree = "<group>"; };
-		968485121D46AC9B0011D3AE /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
-		968485141D46ACC00011D3AE /* ListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
 		968485161D47CC6A0011D3AE /* OTMError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OTMError.swift; sourceTree = "<group>"; };
 		968485181D47E6550011D3AE /* UI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UI.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -191,9 +185,6 @@
 			children = (
 				968485071D4693ED0011D3AE /* Protocols */,
 				968485051D42B5EB0011D3AE /* LoginViewController.swift */,
-				968485121D46AC9B0011D3AE /* MapViewController.swift */,
-				968485101D46AC670011D3AE /* TabViewController.swift */,
-				968485141D46ACC00011D3AE /* ListViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -386,7 +377,6 @@
 				968485061D42B5EB0011D3AE /* LoginViewController.swift in Sources */,
 				968484FB1D4298980011D3AE /* ParseConvenience.swift in Sources */,
 				968485091D4693FD0011D3AE /* NameAware.swift in Sources */,
-				968485131D46AC9B0011D3AE /* MapViewController.swift in Sources */,
 				968484EA1D4268A60011D3AE /* UdacityClient.swift in Sources */,
 				968484F01D426B920011D3AE /* UdacityConstants.swift in Sources */,
 				9684850B1D4697420011D3AE /* Color.swift in Sources */,
@@ -404,8 +394,6 @@
 				968484F71D4292C80011D3AE /* HTTPMethod.swift in Sources */,
 				9684850D1D46A2790011D3AE /* UITextField.swift in Sources */,
 				968484F21D42727E0011D3AE /* ParseConstants.swift in Sources */,
-				968485111D46AC670011D3AE /* TabViewController.swift in Sources */,
-				968485151D46ACC00011D3AE /* ListViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

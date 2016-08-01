@@ -10,9 +10,6 @@ import Foundation
 
 class ParseClient {
     
-    var sessionID: String?
-    
-    
     // MARK: - Singleton
     static let sharedInstance = ParseClient()
     private init() {}
@@ -55,7 +52,7 @@ class ParseClient {
     func taskForPOST(method: String, parameters: [String: AnyObject], jsonBody: String, completionHandlerForPOST: (result: AnyObject?, error: NSError?) -> Void) -> NSURLSessionDataTask {
         let request = requestWith(url: parseURLFrom(parameters: parameters, withPathExtension: method), method: .POST)
         request.addValue(HeaderValue.ApplicationJSON, forHTTPHeaderField: HeaderKey.ContentType)
-        request.HTTPBody = "".dataUsingEncoding(NSUTF8StringEncoding)
+        request.HTTPBody = jsonBody.dataUsingEncoding(NSUTF8StringEncoding)
         let task = NSURLSession.sharedSession().dataTaskWithRequest(request) { (data, response, error) in
             func sendError(error: String) {
                 NSLog(error)
@@ -88,6 +85,8 @@ class ParseClient {
     
     func taskForPUT(method: String, jsonBody: String, completionHandlerForPUT: (result: AnyObject?, error: NSError?) -> Void) -> NSURLSessionDataTask {
         let request = requestWith(url: parseURLFrom(parameters: [:], withPathExtension: method), method: .PUT)
+        request.addValue(HeaderValue.ApplicationJSON, forHTTPHeaderField: HeaderKey.ContentType)
+        request.HTTPBody = jsonBody.dataUsingEncoding(NSUTF8StringEncoding)
         let task = NSURLSession.sharedSession().dataTaskWithRequest(request) { (data, response, error) in
             func sendError(error: String){
                 NSLog(error)
@@ -116,7 +115,6 @@ class ParseClient {
         return task
     }
     
-    
     // MARK: - Helpers
     
     private func parseURLFrom(parameters parameters: [String : AnyObject], withPathExtension: String? = nil) -> NSURL {
@@ -124,6 +122,7 @@ class ParseClient {
         components.scheme = Constants.apiScheme
         components.host = Constants.apiHost
         components.path = Constants.apiPath + (withPathExtension ?? "")
+        components.queryItems = [NSURLQueryItem]()
         
         for (key, value) in parameters {
             let queryItem = NSURLQueryItem(name: key, value: "\(value)")
@@ -152,5 +151,3 @@ class ParseClient {
         return request
     }
 }
-
-

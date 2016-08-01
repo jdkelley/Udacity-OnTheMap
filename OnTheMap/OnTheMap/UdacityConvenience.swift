@@ -41,7 +41,8 @@ extension UdacityClient {
                 let session = json[JSONKeys.session] as? [String: AnyObject],
                 let sessionid = session[JSONKeys.id] as? String,
                 let registered = account[JSONKeys.registered] as? Bool,
-                let key = account[JSONKeys.key] as? String else {
+                let key = account[JSONKeys.key] as? String
+        else {
                 completionHandlerForSession(success: false, errorString: "Could not parse session information from response \(data)")
                 return
         }
@@ -53,28 +54,31 @@ extension UdacityClient {
         }
         self.sessionID = sessionid
         
-        getUserData()
+        getUserData(completionHandlerForSession)
         
-        completionHandlerForSession(success: true, errorString: nil)
+        //completionHandlerForSession(success: true, errorString: nil)
     }
     
-    func getUserData() {
+    func getUserData(completionForGetUserData: (success: Bool, errorString: String?) -> Void) {
         let method = Methods.users.substitute(key: URLKey.userid, forValue: self.account.accountID!) ?? ""
         self.taskForGET(method, completionHandlerForGET: { (result, error) in
             if let _ = error {
                 NSLog("There was an error downloading the user info the the current user.")
+                completionForGetUserData(success: false, errorString: "There was an error downloading the user info the the current user.")
             } else {
-                if  let user = result as? [String: AnyObject],
+                if  let result = result as? [String: AnyObject],
+                    let user = result[JSONKeys.user] as? [String: AnyObject],
                     let last = user[JSONKeys.lastname] as? String,
                     let first = user[JSONKeys.firstname] as? String {
                     self.account.firstName = first
                     self.account.lastName = last
+                    completionForGetUserData(success: true, errorString: nil)
                 } else {
                     NSLog("There was an error downloading the user info the the current user.")
+                    completionForGetUserData(success: false, errorString: "There was an error downloading the user info the the current user.")
                 }
             }
         })
-        
     }
   
     // MARK: Helpers

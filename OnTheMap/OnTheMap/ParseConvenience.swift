@@ -12,15 +12,55 @@ extension ParseClient {
     
     // MARK: TODO
     
-    func previousLocation(uniqueKey uniqueKey: String) -> StudentLocation? {
+    func previousLocation(uniqueKey uniqueKey: String, completionHandlerForPreviousLocation: (exists: Bool, errorString: String?) -> Void ) {
+        let parameters: [String: AnyObject] = [
+            ParameterKeys.Where: ParameterKeys.whereClause(uniqueKey)
+        ]
+        taskForGET(Methods.StudentLocation, parameters: parameters) { (result, error) in
+            if let error = error {
+                print("error")
+                completionHandlerForPreviousLocation(exists: false, errorString: "There was an error with the request: \(error)")
+                return
+            } else {
+                guard let result = result else {
+                    print("Result was nil")
+                    completionHandlerForPreviousLocation(exists: false, errorString: "No results were returned.")
+                    return
+                }
+                
+                guard let results = result[JSONKeys.results] as? [[String:AnyObject]] where results.count > 0 else {
+                    print("No previous locations for this user. \(result)")
+                    completionHandlerForPreviousLocation(exists: false, errorString: "No previous locations for this user.")
+                    return
+                }
+                print("There was a previous location for this user. \(results)")
+                completionHandlerForPreviousLocation(exists: true, errorString: nil)
+            }
         
-        // Get Student Location for current User
-        
-        // If exists, return it
-        // else return nil
-        return nil
+        }
     }
     
+    func studentLocations(completionHandlerForStudentLocations: (students: [StudentLocation]?, errorString: String?) -> Void) {
+        let parameters: [String: AnyObject] = [
+            ParameterKeys.limit : 50,
+            ParameterKeys.skip : 10,
+            ParameterKeys.order : OrderKeys.descending + OrderKeys.updatedAt
+        ]
+        
+        taskForGET(Methods.StudentLocation, parameters: parameters) { (result, error) in
+            if let error = error {
+                completionHandlerForStudentLocations(students: nil, errorString: "Could not find locations: \(error)")
+                return
+            } else {
+                guard let result = result else {
+                    completionHandlerForStudentLocations(students: nil, errorString: "Returned students were nil.")
+                    return
+                }
+                self.locationsFrom(data: result, completionHandlerForConvert: completionHandlerForStudentLocations)
+            }
+        }
+    }
+
     func postNewLocation() {
         
     }
@@ -29,15 +69,15 @@ extension ParseClient {
         
     }
     
-    func locationsFrom(data data: AnyObject, completionHandlerForConvert: (result: [StudentLocation]?, error: NSError?) -> Void) {
+    func locationsFrom(data data: AnyObject, completionHandlerForConvert: (result: [StudentLocation]?, errorString: String?) -> Void) {
         
         guard   let dictionary = data as? [String : AnyObject],
-            let results = dictionary[JSONKeys.results] as? [[String : AnyObject]],
-            let students = StudentLocation.studentLocations(results)
-            else {
-                completionHandlerForConvert(result: nil, error: NSError(domain: "locationListFrom parsing", code: 0, userInfo: [NSLocalizedDescriptionKey : "Could not parse StudentLocation from data"]))
+                let results = dictionary[JSONKeys.results] as? [[String : AnyObject]],
+                let students = StudentLocation.studentLocations(results)
+        else {
+                completionHandlerForConvert(result: nil, errorString: "Could not parse StudentLocation from data")
                 return
         }
-        completionHandlerForConvert(result: students, error: nil)
+        completionHandlerForConvert(result: students, errorString: nil)
     }
 }

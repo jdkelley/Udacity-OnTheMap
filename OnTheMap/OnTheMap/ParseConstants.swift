@@ -43,7 +43,7 @@ extension ParseClient {
         static let skip = "skip"
         static let order = "order"
         static let Where = "where"
-        func whereClause(uniqueKey: String) -> String {
+        static func whereClause(uniqueKey: String) -> String {
             return "{\"\(OrderKeys.uniqueKey)\":\"\(uniqueKey)\"}"
         }
     }

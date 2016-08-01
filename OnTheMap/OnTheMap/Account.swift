@@ -9,11 +9,10 @@
 import Foundation
 
 class Account {
-    
-    var loggedin: Bool = false
-    var firstName: String?
-    var lastName: String?
-    var accountID: String?
-    var isFacebookSession: Bool = false
-    
+    var loggedin : Bool = false
+    var firstName : String?
+    var lastName : String?
+    var accountID : String?
+    var isFacebookSession : Bool = false
+    var hasPreviousUpload : Bool = false
 }

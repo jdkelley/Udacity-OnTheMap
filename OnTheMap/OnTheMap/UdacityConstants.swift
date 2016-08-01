@@ -58,6 +58,7 @@ extension UdacityClient {
         static let expiration = "expiration"
         static let lastname = "last_name"
         static let firstname = "first_name"
+        static let user = "user"
     }
     
     struct Domain {

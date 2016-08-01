@@ -21,7 +21,7 @@ class UdacityClient {
     // MARK: GET
     
     func taskForGET(method: String, completionHandlerForGET: (result: AnyObject?, error: NSError?) -> Void) -> NSURLSessionDataTask {
-        
+
         let request = NSMutableURLRequest(URL: udacityURLWith(pathExtention: method))
         let task = NSURLSession.sharedSession().dataTaskWithRequest(request) { (data, response, error) in
             func sendError(error: String, code: OTMError) {
@@ -32,7 +32,7 @@ class UdacityClient {
             
             
             guard error == nil else {
-                sendError("There was an error with your request", code: .ErrorNotNil)
+                sendError("There was an error with your request: \(error!)", code: .ErrorNotNil)
                 return
             }
             
@@ -56,7 +56,10 @@ class UdacityClient {
     
     func taskForPOST(method: String, jsonBody: String, completionHandlerForPost: (result: AnyObject?, error: NSError?) -> Void) -> NSURLSessionDataTask {
         
-        let request = NSMutableURLRequest(URL: udacityURLWith(pathExtention: Methods.session))
+        let url = udacityURLWith(pathExtention: Methods.session)
+        print("URL : \(url)")
+        
+        let request = NSMutableURLRequest(URL: url)
         request.HTTPMethod = HTTPMethod.POST.rawValue
         request.addValue(HeaderValue.ApplicationJSON, forHTTPHeaderField: HeaderKey.Accept)
         request.addValue(HeaderValue.ApplicationJSON, forHTTPHeaderField: HeaderKey.ContentType)
@@ -70,7 +73,7 @@ class UdacityClient {
             }
             
             guard error == nil else {
-                sendError("There was an error with your request", code: .ErrorNotNil)
+                sendError("There was an error with your request: \(error)", code: .ErrorNotNil)
                 return
             }
             

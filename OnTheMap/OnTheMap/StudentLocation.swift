@@ -10,7 +10,6 @@ import Foundation
 
 struct StudentLocation {
     
-    var objectId: String
     let uniqueKey: String
     let firstName: String
     let lastName: String
@@ -18,6 +17,7 @@ struct StudentLocation {
     let mediaURL: String
     let latitude: Double
     let longitude: Double
+    let objectID: String
    
     struct JSONKeys {
         static let objectId: String = "objectId"
@@ -37,28 +37,37 @@ struct StudentLocation {
     // MARK: Deserialization
     
     static func studentLocation(from: [String: AnyObject]) -> StudentLocation? {
-        guard   let object = from[JSONKeys.objectId] as? String,
-                let unique = from[JSONKeys.uniqueKey] as? String,
+        guard   let unique = from[JSONKeys.uniqueKey] as? String,
                 let first = from[JSONKeys.firstName] as? String,
                 let last = from[JSONKeys.lastName] as? String,
                 let map = from[JSONKeys.mapString] as? String,
                 let url = from[JSONKeys.mediaURL] as? String,
                 let lat = from[JSONKeys.latitude] as? Double,
-                let lon = from[JSONKeys.longitude] as? Double
+                let lon = from[JSONKeys.longitude] as? Double,
+                let obj = from[JSONKeys.objectId] as? String
         else {
             NSLog("Could not parse StudentLocation from: \(from)")
             return nil
         }
         
-        return StudentLocation(objectId: object, uniqueKey: unique, firstName: first, lastName: last, mapString: map, mediaURL: url, latitude: lat, longitude: lon)
+        return StudentLocation(uniqueKey: unique, firstName: first, lastName: last, mapString: map, mediaURL: url, latitude: lat, longitude: lon, objectID: obj)
     }
     
     static func studentLocations(from: [[String: AnyObject]]) -> [StudentLocation]? {
         return from.flatMap {self.studentLocation($0)}
     }
     
-    // MARK: Serialization 
+    // MARK: Serialization
     
-    
-    
+    func JSONObject(uniqueKey key: String) -> String {
+        var object = "{"
+        object += "\"\(JSONKeys.uniqueKey)\":\"\(key)\","
+        object += "\"\(JSONKeys.firstName)\":\"\(firstName)\","
+        object += "\"\(JSONKeys.lastName)\":\"\(lastName)\","
+        object += "\"\(JSONKeys.mapString)\":\"\(mapString)\","
+        object += "\"\(JSONKeys.mediaURL)\":\"\(mediaURL)\","
+        object += "\"\(JSONKeys.latitude)\":\"\(latitude)\","
+        object += "\"\(JSONKeys.longitude)\":\"\(longitude)\""
+        return object + "}"
+    }
 }
