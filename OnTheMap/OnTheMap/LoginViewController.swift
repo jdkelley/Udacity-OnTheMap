@@ -152,10 +152,3 @@ extension LoginViewController : UITextFieldDelegate {
         self.view.endEditing(true)
     }
 }
-
-extension LoginViewController : NameAware  {
-    var name: String {
-        get { return String(LoginViewController.self) }
-    }
-}
-

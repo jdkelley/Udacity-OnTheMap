@@ -41,9 +41,3 @@ extension ListViewController : UITableViewDelegate {
         url.openInSafari()
     }
 }
-
-extension ListViewController : NameAware  {
-    var name: String {
-        get { return String(ListViewController.self) }
-    }
-}

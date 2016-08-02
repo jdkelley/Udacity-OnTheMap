@@ -22,7 +22,8 @@ class MapViewController : UIViewController {
     // MARK: - View Controller Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.tabBarController?.tabBar.hidden = false
+        tabBarController?.tabBar.hidden = false
+        mapView.delegate = self
         
     }
     
@@ -32,10 +33,4 @@ class MapViewController : UIViewController {
 
 extension MapViewController : MKMapViewDelegate {
     
-}
-
-extension MapViewController : NameAware  {
-    var name: String {
-        get { return String(MapViewController.self) }
-    }
 }
