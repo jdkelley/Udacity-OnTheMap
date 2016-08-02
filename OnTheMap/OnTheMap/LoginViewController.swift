@@ -7,7 +7,7 @@
 //
 
 import UIKit
-//import FBSDKLoginKit
+import FacebookLogin
 
 class LoginViewController: UIViewController {
     
