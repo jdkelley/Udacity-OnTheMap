@@ -7,10 +7,10 @@
 //
 
 import UIKit
+//import FBSDKLoginKit
 
 class LoginViewController: UIViewController {
     
-    @IBOutlet weak var backgroundView: UIView!
     @IBOutlet weak var emailTextField: UITextField! { didSet { emailTextField.delegate = self }}
     @IBOutlet weak var passwordTextField: UITextField! {didSet { passwordTextField.delegate = self }}
     @IBOutlet weak var loginButton: UIButton!

@@ -59,5 +59,3 @@ extension StudentDataSource : UITableViewDataSource {
         return cell
     }
 }
-
-

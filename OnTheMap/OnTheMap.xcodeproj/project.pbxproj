@@ -120,6 +120,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9679DA001D4FE8210044694B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		968484A91D37E34C0011D3AE = {
 			isa = PBXGroup;
 			children = (
@@ -143,6 +150,7 @@
 		968484B41D37E34C0011D3AE /* OnTheMap */ = {
 			isa = PBXGroup;
 			children = (
+				9679DA001D4FE8210044694B /* Frameworks */,
 				968485041D42B2960011D3AE /* Assets */,
 				968484E51D414D130011D3AE /* Controller */,
 				968484E41D414D0E0011D3AE /* View */,
@@ -557,6 +565,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/OnTheMap",
+				);
 				INFOPLIST_FILE = OnTheMap/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.joshuadavidkelley.OnTheMap;
@@ -568,6 +580,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/OnTheMap",
+				);
 				INFOPLIST_FILE = OnTheMap/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.joshuadavidkelley.OnTheMap;
