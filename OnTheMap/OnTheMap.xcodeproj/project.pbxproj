@@ -31,7 +31,6 @@
 		968484F71D4292C80011D3AE /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968484F61D4292C80011D3AE /* HTTPMethod.swift */; };
 		968484FB1D4298980011D3AE /* ParseConvenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968484FA1D4298980011D3AE /* ParseConvenience.swift */; };
 		968485011D42A5630011D3AE /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968485001D42A5630011D3AE /* Account.swift */; };
-		968485031D42A6750011D3AE /* FBClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968485021D42A6750011D3AE /* FBClient.swift */; };
 		968485061D42B5EB0011D3AE /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968485051D42B5EB0011D3AE /* LoginViewController.swift */; };
 		968485091D4693FD0011D3AE /* NameAware.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968485081D4693FD0011D3AE /* NameAware.swift */; };
 		9684850B1D4697420011D3AE /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9684850A1D4697420011D3AE /* Color.swift */; };
@@ -97,7 +96,6 @@
 		968484F61D4292C80011D3AE /* HTTPMethod.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
 		968484FA1D4298980011D3AE /* ParseConvenience.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParseConvenience.swift; sourceTree = "<group>"; };
 		968485001D42A5630011D3AE /* Account.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
-		968485021D42A6750011D3AE /* FBClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FBClient.swift; sourceTree = "<group>"; };
 		968485051D42B5EB0011D3AE /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		968485081D4693FD0011D3AE /* NameAware.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NameAware.swift; sourceTree = "<group>"; };
 		9684850A1D4697420011D3AE /* Color.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
@@ -247,7 +245,6 @@
 				968484EB1D4268BE0011D3AE /* ParseClient.swift */,
 				968484F11D42727E0011D3AE /* ParseConstants.swift */,
 				968484FA1D4298980011D3AE /* ParseConvenience.swift */,
-				968485021D42A6750011D3AE /* FBClient.swift */,
 				968485161D47CC6A0011D3AE /* OTMNetworkError.swift */,
 			);
 			name = Networking;
@@ -583,7 +580,6 @@
 				9679D9F51D4FBA670044694B /* MapViewController.swift in Sources */,
 				9679D9FB1D4FC2A80044694B /* MKPointAnnotation.swift in Sources */,
 				9679D9F11D4FB8850044694B /* Constants.swift in Sources */,
-				968485031D42A6750011D3AE /* FBClient.swift in Sources */,
 				9679DA081D50DDA10044694B /* NameAware.Conformance.swift in Sources */,
 				968484E71D414DD70011D3AE /* StudentLocation.swift in Sources */,
 				9679DA0A1D50DE3F0044694B /* PostViewController.swift in Sources */,

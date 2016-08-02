@@ -11,10 +11,12 @@ import FacebookLogin
 
 class LoginViewController: UIViewController {
     
+    var fbbutton: LoginButton!
+    
     @IBOutlet weak var emailTextField: UITextField! { didSet { emailTextField.delegate = self }}
     @IBOutlet weak var passwordTextField: UITextField! {didSet { passwordTextField.delegate = self }}
     @IBOutlet weak var loginButton: UIButton!
-    @IBOutlet weak var fbButton: UIButton!
+    @IBOutlet weak var fbButtonView: UIView!
     @IBOutlet weak var signUPButton: UIButton!
     @IBOutlet weak var spinner: UIActivityIndicatorView!
     
@@ -34,9 +36,10 @@ class LoginViewController: UIViewController {
     @IBAction func loginWithPassword(sender: UIButton) {
         print("presed")
         guard   let email = emailTextField.text,
-                let pw = passwordTextField.text else {
+                let pw = passwordTextField.text
+        else {
                 // pulse and warn user
-                    print("no password")
+                print("no password")
                 return
         }
         spinner.startAnimating()
@@ -44,25 +47,25 @@ class LoginViewController: UIViewController {
         UdacityClient.sharedInstance.loginWithPassword((email, pw)) { (success, errorString) in
             
             if success {
-                print("Made it!!! SessionID: \(UdacityClient.sharedInstance.sessionID)")
+                print("Made it!! SessionID: \(UdacityClient.sharedInstance.sessionID)")
                 print("Unique Key: \(UdacityClient.sharedInstance.account.accountID)")
                 print("First Name: \(UdacityClient.sharedInstance.account.firstName)")
-                print("LastName:: \(UdacityClient.sharedInstance.account.lastName)")
+                print("Last Name: \(UdacityClient.sharedInstance.account.lastName)")
                 
                 guard let id = UdacityClient.sharedInstance.account.accountID else {
-                    print("AccountID Not Found")
+                    print("AccountID Not Found!")
                     return
                 }
                 
-                ParseClient.sharedInstance.previousLocation(uniqueKey: id, completionHandlerForPreviousLocation: { (exists, errorString) in
+                ParseClient.sharedInstance.previousLocation(uniqueKey: id) { (exists, errorString) in
                     if exists {
-                        print("Exists")
+                        print("Exists!")
                         UdacityClient.sharedInstance.account.hasPreviousUpload = true
                     } else {
-                        print("Does not exist")
+                        print("Does not exist!")
                         UdacityClient.sharedInstance.account.hasPreviousUpload = false
                     }
-                })
+                }
                 
                 UI.performUIUpdate {
                     self.spinner.stopAnimating()
@@ -97,22 +100,26 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setBackgroundGradient()
+        
+        fbbutton = LoginButton(readPermissions: [.PublicProfile, .Email])
+        fbbutton.delegate = self //FBClient.sharedInstance
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        self.tabBarController?.tabBar.hidden = true
+        navigationController?.navigationBarHidden = true
         
         spinner.hidesWhenStopped = true
         spinner.stopAnimating()
         setTextFieldPlaceholders()
         padMultipleTextFields(emailTextField, passwordTextField)
+        
+        fbButtonView.addSubview(fbbutton)
     }
     
-    // MARK: Login Flow
-    
-    func login() {
-        
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        fbbutton.frame = fbButtonView.bounds
     }
     
     // MARK: UI Helpers
@@ -121,7 +128,7 @@ class LoginViewController: UIViewController {
         let gradient = CAGradientLayer()
         gradient.frame = view.bounds
         gradient.colors = [Colors.UOrange.light.CGColor, Colors.UOrange.dark.CGColor]
-        gradient.startPoint = CGPointMake(0.5,0.0)
+        gradient.startPoint = CGPointMake(0.5, 0.0)
         gradient.endPoint = CGPointMake(0.5, 1.0)
         view.layer.insertSublayer(gradient, atIndex: 0)
     }
@@ -142,7 +149,7 @@ extension LoginViewController : UITextFieldDelegate {
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         if textField == passwordTextField && (emailTextField.text ?? "").characters.count > 0 {
-            login()
+            loginWithPassword(UIButton())
         }
         return true
     }
@@ -152,3 +159,70 @@ extension LoginViewController : UITextFieldDelegate {
         self.view.endEditing(true)
     }
 }
+
+
+extension LoginViewController : LoginButtonDelegate {
+    
+    func loginButtonDidCompleteLogin(loginButton: LoginButton, result: LoginResult) {
+        switch result {
+        case .Cancelled:
+            print("Cancelled")
+            return
+        case .Failed(let error):
+            print("Failed: \(error)")
+            return
+        case .Success(let granted, let declined, let token):
+            print("Succeeded: \(token.authenticationToken)")
+            UdacityClient.sharedInstance.loginWithFB(token.authenticationToken) { (success, errorString) in
+                <#code#>
+            }
+        }
+    }
+    
+    func loginButtonDidLogOut(loginButton: LoginButton) {
+        print("Logged out of facebook successfully!")
+        //UdacityClient.sharedInstance.logout()
+    }
+}
+
+//spinner.startAnimating()
+//enableUI(to: false)
+//UdacityClient.sharedInstance.loginWith((email, pw)) { (success, errorString) in
+//    
+//    if success {
+//        print("Made it!!! SessionID: \(UdacityClient.sharedInstance.sessionID)")
+//        print("Unique Key: \(UdacityClient.sharedInstance.account.accountID)")
+//        print("First Name: \(UdacityClient.sharedInstance.account.firstName)")
+//        print("LastName:: \(UdacityClient.sharedInstance.account.lastName)")
+//        
+//        guard let id = UdacityClient.sharedInstance.account.accountID else {
+//            print("AccountID Not Found")
+//            return
+//        }
+//        
+//        ParseClient.sharedInstance.previousLocation(uniqueKey: id, completionHandlerForPreviousLocation: { (exists, errorString) in
+//            if exists {
+//                print("Exists")
+//                UdacityClient.sharedInstance.account.hasPreviousUpload = true
+//            } else {
+//                print("Does not exist")
+//                UdacityClient.sharedInstance.account.hasPreviousUpload = false
+//            }
+//        })
+//        
+//        UI.performUIUpdate {
+//            self.spinner.stopAnimating()
+//            self.enableUI(to: true)
+//            // TODO: Clear TextFields and transition
+//            UdacityClient.sharedInstance.account.loggedin = true // completion handler
+//        }
+//    } else {
+//        UI.performUIUpdate {
+//            self.spinner.stopAnimating()
+//            self.enableUI(to: true)
+//            // TODO: Clear TextFields and transition
+//            UdacityClient.sharedInstance.account.loggedin = false // completion handler
+//        }
+//        print("not successful? - \(errorString ?? "")")
+//    }
+//}

@@ -125,23 +125,16 @@
                                             <action selector="signUp:" destination="BYZ-38-t0r" eventType="touchUpInside" id="3mJ-XN-RDQ"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KUG-H4-jFW">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rat-jY-S0t">
                                         <rect key="frame" x="0.0" y="355" width="520" height="35"/>
-                                        <color key="backgroundColor" red="0.22745098039215686" green="0.32941176470588235" blue="0.65098039215686276" alpha="1" colorSpace="calibratedRGB"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                        <state key="normal" title="Sign in with Facebook">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="loginWithFB:" destination="BYZ-38-t0r" eventType="touchDragInside" id="49v-BK-htB"/>
-                                        </connections>
-                                    </button>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    </view>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="7CW-mP-W0y" firstAttribute="height" secondItem="0Nh-Vy-Vsy" secondAttribute="height" id="Grx-xQ-Zul"/>
                                     <constraint firstItem="i6b-rx-hQZ" firstAttribute="height" secondItem="75f-4G-2wR" secondAttribute="height" id="L3a-ah-q77"/>
-                                    <constraint firstItem="KUG-H4-jFW" firstAttribute="height" secondItem="7CW-mP-W0y" secondAttribute="height" id="LBV-5y-sTC"/>
+                                    <constraint firstItem="Rat-jY-S0t" firstAttribute="height" secondItem="7CW-mP-W0y" secondAttribute="height" id="aq3-GW-7Cx"/>
                                     <constraint firstItem="0Nh-Vy-Vsy" firstAttribute="height" secondItem="i6b-rx-hQZ" secondAttribute="height" id="gLL-dO-Y57"/>
                                     <constraint firstItem="75f-4G-2wR" firstAttribute="height" secondItem="WFa-t6-cAN" secondAttribute="height" id="qRm-3s-IVQ"/>
                                 </constraints>
@@ -160,7 +153,7 @@
                     <navigationItem key="navigationItem" id="2sw-hP-YIe"/>
                     <connections>
                         <outlet property="emailTextField" destination="75f-4G-2wR" id="jbn-8d-3kV"/>
-                        <outlet property="fbButton" destination="KUG-H4-jFW" id="oDA-o2-O2M"/>
+                        <outlet property="fbButtonView" destination="Rat-jY-S0t" id="6aK-vd-a6J"/>
                         <outlet property="loginButton" destination="0Nh-Vy-Vsy" id="t9C-sv-A3y"/>
                         <outlet property="passwordTextField" destination="i6b-rx-hQZ" id="try-Rd-2ZA"/>
                         <outlet property="signUPButton" destination="7CW-mP-W0y" id="rPC-w1-dy2"/>
