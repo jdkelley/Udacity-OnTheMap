@@ -66,9 +66,9 @@ class UdacityClient {
         request.HTTPBody = jsonBody.dataUsingEncoding(NSUTF8StringEncoding)
         
         let task = NSURLSession.sharedSession().dataTaskWithRequest(request) { (data, response, error) in
-            func sendError(error: String, code: OTMNetworkError) {
-                NSLog(error)
-                let userInfo = [NSLocalizedDescriptionKey : error]
+            func sendError(err: String, code: OTMNetworkError) {
+                NSLog(err)
+                let userInfo = [NSLocalizedDescriptionKey : err]
                 completionHandlerForPost(result: nil, error: NSError(domain: Domain.taskForPOST, code: code.code, userInfo: userInfo))
             }
             
@@ -77,7 +77,7 @@ class UdacityClient {
                 return
             }
             
-            guard let statusCode = (response as? NSHTTPURLResponse)?.statusCode where statusCode >= 200  && statusCode < 300 else {
+            guard let statusCode = (response as? NSHTTPURLResponse)?.statusCode where statusCode >= 200 && statusCode < 300 else {
                 sendError("Request returned something other than a 2xx response.", code: .HTTPResponse(code: (response as? NSHTTPURLResponse)?.statusCode))
                 return
             }

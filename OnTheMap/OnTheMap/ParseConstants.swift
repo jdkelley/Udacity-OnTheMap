@@ -15,8 +15,8 @@ extension ParseClient {
         static let APIKey = "QuWThTdiRmTux3YaDseUSEpUKo7aBYM737yKd4gY"
         
         static let apiScheme = "https"
-        static let apiHost = "api.parse.com"
-        static let apiPath = "/1/classes"
+        static let apiHost = "parse.udacity.com"
+        static let apiPath = "/parse/classes"
     }
     
     struct HeaderKey {

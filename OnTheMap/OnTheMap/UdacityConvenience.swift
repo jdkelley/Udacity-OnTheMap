@@ -88,7 +88,7 @@ extension UdacityClient {
     }
     
     private func postBody(fbID: String) -> String {
-        return "{\"\(POSTBody.facebookmobile)\":\"\(POSTBody.access_token)\":\"\(fbID)\"}"
+        return "{\"\(POSTBody.facebookmobile)\":{\"\(POSTBody.access_token)\":\"\(fbID)\"}}"
     }
     
 

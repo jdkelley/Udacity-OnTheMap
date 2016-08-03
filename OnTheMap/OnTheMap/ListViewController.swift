@@ -13,7 +13,6 @@ class ListViewController : UIViewController {
     // MARK: - Properties
     @IBOutlet weak var tableView: UITableView!
     
-    
     // MARK: Outlets
     
     // MARK: Actions

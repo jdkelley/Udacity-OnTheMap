@@ -84,7 +84,7 @@ class LoginViewController: UIViewController {
             }
         }
     }
-    
+
     func enableUI(to to: Bool) {
         loginButton.enabled = to
         emailTextField.enabled = to
@@ -174,7 +174,44 @@ extension LoginViewController : LoginButtonDelegate {
         case .Success(let granted, let declined, let token):
             print("Succeeded: \(token.authenticationToken)")
             UdacityClient.sharedInstance.loginWithFB(token.authenticationToken) { (success, errorString) in
-                <#code#>
+                if success {
+                    print("Made it!! SessionID: \(UdacityClient.sharedInstance.sessionID)")
+                    print("Unique Key: \(UdacityClient.sharedInstance.account.accountID)")
+                    print("First Name: \(UdacityClient.sharedInstance.account.firstName)")
+                    print("Last Name: \(UdacityClient.sharedInstance.account.lastName)")
+                    
+                    guard let id = UdacityClient.sharedInstance.account.accountID else {
+                        print("AccountID Not Found!")
+                        return
+                    }
+                    
+                    ParseClient.sharedInstance.previousLocation(uniqueKey: id) { (exists, errorString) in
+                        if exists {
+                            print("Exists!")
+                            UdacityClient.sharedInstance.account.hasPreviousUpload = true
+                        } else {
+                            print("Does not exist!")
+                            UdacityClient.sharedInstance.account.hasPreviousUpload = false
+                        }
+                    }
+                    
+                    UI.performUIUpdate {
+                        self.spinner.stopAnimating()
+                        self.enableUI(to: true)
+                        // TODO: Clear TextFields and transition
+                        UdacityClient.sharedInstance.account.loggedin = true // completion handler
+                        UdacityClient.sharedInstance.account.isFacebookSession = true
+                    }
+                } else {
+                    UI.performUIUpdate {
+                        self.spinner.stopAnimating()
+                        self.enableUI(to: true)
+                        // TODO: Clear TextFields and transition
+                        UdacityClient.sharedInstance.account.loggedin = false // completion handler
+                        UdacityClient.sharedInstance.account.isFacebookSession = false
+                    }
+                    print("not successful? - \(errorString ?? "")")
+                }
             }
         }
     }
