@@ -14,6 +14,5 @@ struct Colors {
         static let normal = UIColor(red: 253.0 / 255.0, green: 126.0 / 255.0, blue: 13.0 / 255.0, alpha: 1.0)
         static let dark = UIColor(red: 253.0 / 255.0, green: 88.0 / 255.0, blue: 6.0 / 255.0, alpha: 1.0)
     }
-    
     static let buttonRed = UIColor(red: 238.0 / 255.0, green: 62.0 / 255.0, blue: 5.0 / 255.0, alpha: 1.0)
 }

@@ -12,7 +12,3 @@ struct Identifiers {
         static let LoginSegue: String  = "LoginSegue"
         static let OTMTableViewCell: String = "OTMTableViewCell"
 }
-
-struct ActionSelectors {
-    
-}

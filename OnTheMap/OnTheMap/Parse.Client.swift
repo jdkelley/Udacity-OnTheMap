@@ -1,5 +1,5 @@
 //
-//  ParseClient.swift
+//  Parse.Client.swift
 //  OnTheMap
 //
 //  Created by Joshua Kelley on 7/22/16.

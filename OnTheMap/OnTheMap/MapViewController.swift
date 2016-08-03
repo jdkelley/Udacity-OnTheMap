@@ -24,7 +24,6 @@ class MapViewController : UIViewController {
         super.viewDidLoad()
         tabBarController?.tabBar.hidden = false
         mapView.delegate = self
-        
     }
     
     // MARK: - Custom Methods

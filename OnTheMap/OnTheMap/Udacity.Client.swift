@@ -1,5 +1,5 @@
 //
-//  UdacityClient.swift
+//  Udacity.Client.swift
 //  OnTheMap
 //
 //  Created by Joshua Kelley on 7/22/16.
@@ -57,7 +57,7 @@ class UdacityClient {
     func taskForPOST(method: String, jsonBody: String, completionHandlerForPost: (result: AnyObject?, error: NSError?) -> Void) -> NSURLSessionDataTask {
         
         let url = udacityURLWith(pathExtention: Methods.session)
-        print("URL : \(url)")
+        NSLog("URL : \(url)")
         
         let request = NSMutableURLRequest(URL: url)
         request.HTTPMethod = HTTPMethod.POST.rawValue

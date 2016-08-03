@@ -19,27 +19,15 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var fbButtonView: UIView!
     @IBOutlet weak var signUPButton: UIButton!
     @IBOutlet weak var spinner: UIActivityIndicatorView!
-    
-    @IBAction func loginWithFB(sender: UIButton) {
-        // call FB SDK
-        // on return use token with
-//        UdacityClient.sharedInstance.loginWithFB(token) { (success, errorString) in
-//            if success {
-//                UI.performUIUpdate {
-//                    // TODO: Clear TextFields and transition
-//                    UdacityClient.sharedInstance.account.loggedin = true // completion handler
-//                }
-//            }
-//        }
-    }
+
     
     @IBAction func loginWithPassword(sender: UIButton) {
-        print("presed")
+        NSLog("pressed")
         guard   let email = emailTextField.text,
                 let pw = passwordTextField.text
         else {
                 // pulse and warn user
-                print("no password")
+                NSLog("no password")
                 return
         }
         spinner.startAnimating()
@@ -47,22 +35,22 @@ class LoginViewController: UIViewController {
         UdacityClient.sharedInstance.loginWithPassword((email, pw)) { (success, errorString) in
             
             if success {
-                print("Made it!! SessionID: \(UdacityClient.sharedInstance.sessionID)")
-                print("Unique Key: \(UdacityClient.sharedInstance.account.accountID)")
-                print("First Name: \(UdacityClient.sharedInstance.account.firstName)")
-                print("Last Name: \(UdacityClient.sharedInstance.account.lastName)")
+                NSLog("Made it!! SessionID: \(UdacityClient.sharedInstance.sessionID)")
+                NSLog("Unique Key: \(UdacityClient.sharedInstance.account.accountID)")
+                NSLog("First Name: \(UdacityClient.sharedInstance.account.firstName)")
+                NSLog("Last Name: \(UdacityClient.sharedInstance.account.lastName)")
                 
                 guard let id = UdacityClient.sharedInstance.account.accountID else {
-                    print("AccountID Not Found!")
+                    NSLog("AccountID Not Found!")
                     return
                 }
                 
                 ParseClient.sharedInstance.previousLocation(uniqueKey: id) { (exists, errorString) in
                     if exists {
-                        print("Exists!")
+                        NSLog("Exists!")
                         UdacityClient.sharedInstance.account.hasPreviousUpload = true
                     } else {
-                        print("Does not exist!")
+                        NSLog("Does not exist!")
                         UdacityClient.sharedInstance.account.hasPreviousUpload = false
                     }
                 }
@@ -80,7 +68,7 @@ class LoginViewController: UIViewController {
                     // TODO: Clear TextFields and transition
                     UdacityClient.sharedInstance.account.loggedin = false // completion handler
                 }
-                print("not successful? - \(errorString ?? "")")
+                NSLog("not successful? - \(errorString ?? "")")
             }
         }
     }
@@ -166,31 +154,31 @@ extension LoginViewController : LoginButtonDelegate {
     func loginButtonDidCompleteLogin(loginButton: LoginButton, result: LoginResult) {
         switch result {
         case .Cancelled:
-            print("Cancelled")
+            NSLog("Login Button - Cancelled")
             return
         case .Failed(let error):
-            print("Failed: \(error)")
+            NSLog("Login Button - Failed: \(error)")
             return
         case .Success(let granted, let declined, let token):
-            print("Succeeded: \(token.authenticationToken)")
+            NSLog("Login Button - Succeeded: \(token.authenticationToken)")
             UdacityClient.sharedInstance.loginWithFB(token.authenticationToken) { (success, errorString) in
                 if success {
-                    print("Made it!! SessionID: \(UdacityClient.sharedInstance.sessionID)")
-                    print("Unique Key: \(UdacityClient.sharedInstance.account.accountID)")
-                    print("First Name: \(UdacityClient.sharedInstance.account.firstName)")
-                    print("Last Name: \(UdacityClient.sharedInstance.account.lastName)")
+                    NSLog("Made it!! SessionID: \(UdacityClient.sharedInstance.sessionID)")
+                    NSLog("Unique Key: \(UdacityClient.sharedInstance.account.accountID)")
+                    NSLog("First Name: \(UdacityClient.sharedInstance.account.firstName)")
+                    NSLog("Last Name: \(UdacityClient.sharedInstance.account.lastName)")
                     
                     guard let id = UdacityClient.sharedInstance.account.accountID else {
-                        print("AccountID Not Found!")
+                        NSLog("AccountID Not Found!")
                         return
                     }
                     
                     ParseClient.sharedInstance.previousLocation(uniqueKey: id) { (exists, errorString) in
                         if exists {
-                            print("Exists!")
+                            NSLog("Exists!")
                             UdacityClient.sharedInstance.account.hasPreviousUpload = true
                         } else {
-                            print("Does not exist!")
+                            NSLog("Does not exist!")
                             UdacityClient.sharedInstance.account.hasPreviousUpload = false
                         }
                     }
@@ -210,14 +198,14 @@ extension LoginViewController : LoginButtonDelegate {
                         UdacityClient.sharedInstance.account.loggedin = false // completion handler
                         UdacityClient.sharedInstance.account.isFacebookSession = false
                     }
-                    print("not successful? - \(errorString ?? "")")
+                    NSLog("not successful? - \(errorString ?? "")")
                 }
             }
         }
     }
     
     func loginButtonDidLogOut(loginButton: LoginButton) {
-        print("Logged out of facebook successfully!")
+        NSLog("Logged out of facebook successfully!")
         //UdacityClient.sharedInstance.logout()
     }
 }

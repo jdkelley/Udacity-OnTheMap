@@ -1,5 +1,5 @@
 //
-//  ParseConvenience.swift
+//  Parse.Convenience.swift
 //  OnTheMap
 //
 //  Created by Joshua Kelley on 7/22/16.
@@ -18,22 +18,22 @@ extension ParseClient {
         ]
         taskForGET(Methods.StudentLocation, parameters: parameters) { (result, error) in
             if let error = error {
-                print("error")
+                NSLog("error")
                 completionHandlerForPreviousLocation(exists: false, errorString: "There was an error with the request: \(error)")
                 return
             } else {
                 guard let result = result else {
-                    print("Result was nil")
+                    NSLog("Result was nil")
                     completionHandlerForPreviousLocation(exists: false, errorString: "No results were returned.")
                     return
                 }
                 
                 guard let results = result[JSONKeys.results] as? [[String:AnyObject]] where results.count > 0 else {
-                    print("No previous locations for this user. \(result)")
+                    NSLog("No previous locations for this user. \(result)")
                     completionHandlerForPreviousLocation(exists: false, errorString: "No previous locations for this user.")
                     return
                 }
-                print("There was a previous location for this user. \(results)")
+                NSLog("There was a previous location for this user. \(results)")
                 completionHandlerForPreviousLocation(exists: true, errorString: nil)
             }
         
