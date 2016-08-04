@@ -13,7 +13,7 @@ extension UdacityClient {
     func loginWithPassword(creds: (username: String, password: String), completionHandlerForLogin: (success: Bool, errorString: String?) -> Void) {
         taskForPOST(Methods.session, jsonBody: postBody(username: creds.username, password: creds.password)) { (result, error) in
             if let error = error {
-                NSLog(error)
+                NSLog("\(error)")
                 completionHandlerForLogin(success: false, errorString: "Login Failed (POST Session)")
             } else {
                 self.getSessionInfo(result, completionHandlerForSession: completionHandlerForLogin)
@@ -24,7 +24,7 @@ extension UdacityClient {
     func loginWithFB(fbID: String, completionHandlerForFBLogin: (success: Bool, errorString: String?) -> Void) {
         taskForPOST(Methods.session, jsonBody: postBody(fbID)) { (result, error) in
             if let error = error {
-                NSLog(error)
+                NSLog("\(error)")
                 completionHandlerForFBLogin(success: false, errorString: "Login Failed (POST Session)")
             } else {
                 self.getSessionInfo(result, completionHandlerForSession: completionHandlerForFBLogin)

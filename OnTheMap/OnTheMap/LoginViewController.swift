@@ -14,7 +14,7 @@ class LoginViewController: UIViewController {
     var fbbutton: LoginButton!
     
     @IBOutlet weak var emailTextField: UITextField! { didSet { emailTextField.delegate = self }}
-    @IBOutlet weak var passwordTextField: UITextField! {didSet { passwordTextField.delegate = self }}
+    @IBOutlet weak var passwordTextField: UITextField! { didSet { passwordTextField.delegate = self }}
     @IBOutlet weak var loginButton: UIButton!
     @IBOutlet weak var fbButtonView: UIView!
     @IBOutlet weak var signUPButton: UIButton!
@@ -100,7 +100,7 @@ class LoginViewController: UIViewController {
         spinner.hidesWhenStopped = true
         spinner.stopAnimating()
         setTextFieldPlaceholders()
-        padMultipleTextFields(emailTextField, passwordTextField)
+        UITextField.padMultipleTextFields(emailTextField, passwordTextField)
         
         fbButtonView.addSubview(fbbutton)
     }
@@ -125,12 +125,6 @@ class LoginViewController: UIViewController {
         emailTextField.attributedPlaceholder = NSAttributedString(string: "Email", attributes: [NSForegroundColorAttributeName : UIColor.whiteColor()])
         passwordTextField.attributedPlaceholder = NSAttributedString(string: "Password", attributes: [NSForegroundColorAttributeName : UIColor.whiteColor()])
     }
-    
-    private func padMultipleTextFields(textfields: UITextField...) {
-        for textfield in textfields {
-            textfield.leftPad(by: 8)
-        }
-    }
 }
 
 extension LoginViewController : UITextFieldDelegate {
@@ -148,9 +142,7 @@ extension LoginViewController : UITextFieldDelegate {
     }
 }
 
-
 extension LoginViewController : LoginButtonDelegate {
-    
     func loginButtonDidCompleteLogin(loginButton: LoginButton, result: LoginResult) {
         switch result {
         case .Cancelled:
@@ -206,7 +198,7 @@ extension LoginViewController : LoginButtonDelegate {
     
     func loginButtonDidLogOut(loginButton: LoginButton) {
         NSLog("Logged out of facebook successfully!")
-        //UdacityClient.sharedInstance.logout()
+//        UdacityClient.sharedInstance.logout()
     }
 }
 

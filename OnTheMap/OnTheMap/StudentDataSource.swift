@@ -38,9 +38,6 @@ extension StudentDataSource {
 }
 
 extension StudentDataSource : UITableViewDataSource {
-    
-    //TODO: UITableViewDataSource
-    
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return students.count
     }
