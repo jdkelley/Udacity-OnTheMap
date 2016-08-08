@@ -278,6 +278,13 @@
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fNU-Wn-ZKC" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <navigationBar contentMode="scaleToFill" id="ZfU-Ki-thZ">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                    <items>
+                        <navigationItem title="Title" id="9kX-DN-nHO"/>
+                    </items>
+                </navigationBar>
             </objects>
             <point key="canvasLocation" x="-391" y="406"/>
         </scene>

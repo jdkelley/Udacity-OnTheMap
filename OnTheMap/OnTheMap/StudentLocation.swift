@@ -36,7 +36,18 @@ struct StudentLocation {
     
     // MARK: Deserialization
     
-    static func studentLocation(from: [String: AnyObject]) -> StudentLocation? {
+    init(uniqueKey: String, firstName: String, lastName: String, mapString: String, mediaURL: String, latitude: Double, longitude: Double, objectID: String) {
+        self.uniqueKey = uniqueKey
+        self.firstName = firstName
+        self.lastName = lastName
+        self.mapString = mapString
+        self.mediaURL = mediaURL
+        self.latitude = latitude
+        self.longitude = longitude
+        self.objectID = objectID
+    }
+    
+    init?(from: [String: AnyObject]) {
         guard   let unique = from[JSONKeys.uniqueKey] as? String,
                 let first = from[JSONKeys.firstName] as? String,
                 let last = from[JSONKeys.lastName] as? String,
@@ -50,16 +61,16 @@ struct StudentLocation {
             return nil
         }
         
-        return StudentLocation(uniqueKey: unique, firstName: first, lastName: last, mapString: map, mediaURL: url, latitude: lat, longitude: lon, objectID: obj)
+        self = StudentLocation(uniqueKey: unique, firstName: first, lastName: last, mapString: map, mediaURL: url, latitude: lat, longitude: lon, objectID: obj)
     }
     
     static func studentLocations(from: [[String: AnyObject]]) -> [StudentLocation]? {
-        return from.flatMap {self.studentLocation($0)}
+        return from.flatMap {StudentLocation(from: $0)}
     }
     
     // MARK: Serialization
     
-    func JSONObject(uniqueKey key: String) -> String {
+    func JSONObjectFor(uniqueKey key: String) -> String {
         var object = "{"
         object += "\"\(JSONKeys.uniqueKey)\":\"\(key)\","
         object += "\"\(JSONKeys.firstName)\":\"\(firstName)\","
