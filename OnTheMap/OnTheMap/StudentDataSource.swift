@@ -16,24 +16,25 @@ class StudentDataSource : NSObject {
     private override init() {}
     
     // MARK: Properties
-    var students = [StudentLocation]()
-    
-    private var _annotations = [MKPointAnnotation]()
-    var annotations: [MKPointAnnotation] {
-        get { return _annotations }
+    var students = [StudentLocation]() {
+        didSet {
+            setAnnotationsWith(students)
+        }
     }
+    
+    var annotations = [MKPointAnnotation]()
 }
 
 // MARK: Helpers
 
 extension StudentDataSource {
     func setAnnotationsWith(students: [StudentLocation]) {
-        _annotations = MKPointAnnotation.annotationsFrom(students)
+        annotations = MKPointAnnotation.annotationsFrom(students)
     }
     
     func clearMapData() {
         students = [StudentLocation]()
-        _annotations = [MKPointAnnotation]()
+        annotations = [MKPointAnnotation]()
     }
 }
 
@@ -46,11 +47,11 @@ extension StudentDataSource : UITableViewDataSource {
         
         let index = indexPath.row
         
-        guard tableView.dequeueReusableCellWithIdentifier(Identifiers.OTMTableViewCell) != nil else {
+        guard let cell = tableView.dequeueReusableCellWithIdentifier(Identifiers.OTMTableViewCell) else {
             return UITableViewCell()
         }
         
-        let cell = UITableViewCell(style: .Subtitle, reuseIdentifier: Identifiers.OTMTableViewCell)
+        //let cell = UITableViewCell(style: .Subtitle, reuseIdentifier: Identifiers.OTMTableViewCell)
         cell.textLabel?.text = "\(students[index].firstName) \(students[index].lastName)"
         cell.detailTextLabel?.text = students[index].mediaURL
         return cell

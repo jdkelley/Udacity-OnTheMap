@@ -44,29 +44,31 @@ class LoginViewController: UIViewController {
                     NSLog("AccountID Not Found!")
                     return
                 }
-                
-                ParseClient.sharedInstance.previousLocation(uniqueKey: id) { (exists, errorString) in
-                    if exists {
-                        NSLog("Exists!")
-                        UdacityClient.sharedInstance.account.hasPreviousUpload = true
-                    } else {
-                        NSLog("Does not exist!")
-                        UdacityClient.sharedInstance.account.hasPreviousUpload = false
-                    }
-                }
+
+                ParseClient.sharedInstance.previousLocation(uniqueKey: id)
                 
                 UI.performUIUpdate {
                     self.spinner.stopAnimating()
                     self.enableUI(to: true)
-                    // TODO: Clear TextFields and transition
+                    self.pushTabBar()
                     UdacityClient.sharedInstance.account.loggedin = true // completion handler
                 }
             } else {
+                UdacityClient.sharedInstance.account.loggedin = false
                 UI.performUIUpdate {
-                    self.spinner.stopAnimating()
-                    self.enableUI(to: true)
-                    // TODO: Clear TextFields and transition
-                    UdacityClient.sharedInstance.account.loggedin = false // completion handler
+                    let message = ((errorString ?? "") == UdacityClient.LoginMessages.InvalidEmail) ? UdacityClient.LoginMessages.InvalidEmail : "Failed to connect. Please verify your connection to the internet."
+                    let alertController = UIAlertController(title: nil, message: message, preferredStyle: .Alert)
+                    
+                    let okayAction = UIAlertAction(title: "OK", style: .Default) { (action) in
+                        print("okay pressed")
+                    }
+                    alertController.addAction(okayAction)
+                    
+                    self.presentViewController(alertController, animated: true) {
+                        self.spinner.stopAnimating()
+                        self.enableUI(to: true)
+                    }
+                    
                 }
                 NSLog("not successful? - \(errorString ?? "")")
             }
@@ -150,7 +152,7 @@ extension LoginViewController : LoginButtonDelegate {
             return
         case .Failed(let error):
             NSLog("Login Button - Failed: \(error)")
-            return
+                        return
         case .Success(let granted, let declined, let token):
             NSLog("Login Button - Succeeded: \(token.authenticationToken)")
             UdacityClient.sharedInstance.loginWithFB(token.authenticationToken) { (success, errorString) in
@@ -165,20 +167,13 @@ extension LoginViewController : LoginButtonDelegate {
                         return
                     }
                     
-                    ParseClient.sharedInstance.previousLocation(uniqueKey: id) { (exists, errorString) in
-                        if exists {
-                            NSLog("Exists!")
-                            UdacityClient.sharedInstance.account.hasPreviousUpload = true
-                        } else {
-                            NSLog("Does not exist!")
-                            UdacityClient.sharedInstance.account.hasPreviousUpload = false
-                        }
-                    }
+                    ParseClient.sharedInstance.previousLocation(uniqueKey: id)
+                
                     
                     UI.performUIUpdate {
                         self.spinner.stopAnimating()
                         self.enableUI(to: true)
-                        // TODO: Clear TextFields and transition
+                        self.pushTabBar()
                         UdacityClient.sharedInstance.account.loggedin = true // completion handler
                         UdacityClient.sharedInstance.account.isFacebookSession = true
                     }
@@ -200,46 +195,11 @@ extension LoginViewController : LoginButtonDelegate {
         NSLog("Logged out of facebook successfully!")
 //        UdacityClient.sharedInstance.logout()
     }
+    
+    func pushTabBar() {
+        if let tbvc = storyboard?.instantiateViewControllerWithIdentifier(Identifiers.TabBarController) as? TabBarController {
+            navigationController?.pushViewController(tbvc, animated: true)
+        }
+    }
+    
 }
-
-//spinner.startAnimating()
-//enableUI(to: false)
-//UdacityClient.sharedInstance.loginWith((email, pw)) { (success, errorString) in
-//    
-//    if success {
-//        print("Made it!!! SessionID: \(UdacityClient.sharedInstance.sessionID)")
-//        print("Unique Key: \(UdacityClient.sharedInstance.account.accountID)")
-//        print("First Name: \(UdacityClient.sharedInstance.account.firstName)")
-//        print("LastName:: \(UdacityClient.sharedInstance.account.lastName)")
-//        
-//        guard let id = UdacityClient.sharedInstance.account.accountID else {
-//            print("AccountID Not Found")
-//            return
-//        }
-//        
-//        ParseClient.sharedInstance.previousLocation(uniqueKey: id, completionHandlerForPreviousLocation: { (exists, errorString) in
-//            if exists {
-//                print("Exists")
-//                UdacityClient.sharedInstance.account.hasPreviousUpload = true
-//            } else {
-//                print("Does not exist")
-//                UdacityClient.sharedInstance.account.hasPreviousUpload = false
-//            }
-//        })
-//        
-//        UI.performUIUpdate {
-//            self.spinner.stopAnimating()
-//            self.enableUI(to: true)
-//            // TODO: Clear TextFields and transition
-//            UdacityClient.sharedInstance.account.loggedin = true // completion handler
-//        }
-//    } else {
-//        UI.performUIUpdate {
-//            self.spinner.stopAnimating()
-//            self.enableUI(to: true)
-//            // TODO: Clear TextFields and transition
-//            UdacityClient.sharedInstance.account.loggedin = false // completion handler
-//        }
-//        print("not successful? - \(errorString ?? "")")
-//    }
-//}

@@ -14,7 +14,11 @@ extension UdacityClient {
         taskForPOST(Methods.session, jsonBody: postBody(username: creds.username, password: creds.password)) { (result, error) in
             if let error = error {
                 NSLog("\(error)")
-                completionHandlerForLogin(success: false, errorString: "Login Failed (POST Session)")
+                if error.code == 403  {
+                    completionHandlerForLogin(success: false, errorString:  LoginMessages.InvalidEmail )
+                } else {
+                    completionHandlerForLogin(success: false, errorString: "Login Failed (POST Session)")
+                }
             } else {
                 self.getSessionInfo(result, completionHandlerForSession: completionHandlerForLogin)
             }
@@ -25,7 +29,11 @@ extension UdacityClient {
         taskForPOST(Methods.session, jsonBody: postBody(fbID)) { (result, error) in
             if let error = error {
                 NSLog("\(error)")
-                completionHandlerForFBLogin(success: false, errorString: "Login Failed (POST Session)")
+                if error.code == 403  {
+                    completionHandlerForFBLogin(success: false, errorString:  LoginMessages.InvalidEmail )
+                } else {
+                    completionHandlerForFBLogin(success: false, errorString: "Login Failed (POST Session)")
+                }
             } else {
                 self.getSessionInfo(result, completionHandlerForSession: completionHandlerForFBLogin)
             }
@@ -43,13 +51,13 @@ extension UdacityClient {
                 let registered = account[JSONKeys.registered] as? Bool,
                 let key = account[JSONKeys.key] as? String
         else {
-                completionHandlerForSession(success: false, errorString: "Could not parse session information from response \(data)")
+                completionHandlerForSession(success: false, errorString: LoginMessages.InvalidEmail)
                 return
         }
         if registered {
             self.account.accountID = key
         } else {
-            completionHandlerForSession(success: false, errorString: "Cannot login with unregistered user")
+            completionHandlerForSession(success: false, errorString: LoginMessages.InvalidEmail)
             return
         }
         self.sessionID = sessionid
@@ -72,7 +80,11 @@ extension UdacityClient {
                     let first = user[JSONKeys.firstname] as? String {
                     self.account.firstName = first
                     self.account.lastName = last
-                    completionForGetUserData(success: true, errorString: nil)
+                    
+                    ParseClient.sharedInstance.studentLocations({ (success, errorString) in
+                        completionForGetUserData(success: success, errorString: nil)
+                    })
+                    
                 } else {
                     NSLog("There was an error downloading the user info the the current user.")
                     completionForGetUserData(success: false, errorString: "There was an error downloading the user info the the current user.")

@@ -67,4 +67,8 @@ extension UdacityClient {
         static let taskForDELETE = "UdacityClient.taskForDELETE"
         static let convertDataWithCompletionHandler = "UdacityClient.convertDataWithCompletionHandler"
     }
+    
+    struct LoginMessages {
+        static let InvalidEmail = "Login Failed: Invalid credentials"
+    }
 }

@@ -6,7 +6,7 @@
 //  Copyright © 2016 Joshua Kelley. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 struct UI {
     static func performUIUpdate(update: () -> Void) {

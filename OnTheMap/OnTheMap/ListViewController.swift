@@ -13,6 +13,12 @@ class ListViewController : UIViewController {
     // MARK: - Properties
     @IBOutlet weak var tableView: UITableView!
     
+    var data = StudentDataSource.sharedInstance.students {
+        didSet {
+            tableView.reloadData()
+        }
+    }
+    
     // MARK: Outlets
     
     // MARK: Actions

@@ -15,4 +15,13 @@ class Account {
     var accountID : String?
     var isFacebookSession : Bool = false
     var hasPreviousUpload : Bool = false
+    
+    func reset() {
+        loggedin = false
+        firstName = nil
+        lastName = nil
+        accountID = nil
+        isFacebookSession = false
+        hasPreviousUpload = false
+    }
 }
