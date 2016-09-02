@@ -28,6 +28,8 @@ struct UIText {
     
     static let FindButton = "Find on the Map"
     static let SubmitButton = "Submit"
+    
+    static let DataError = "There was an error retrieving student data."
 }
 
 struct Images {

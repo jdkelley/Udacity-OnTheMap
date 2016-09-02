@@ -37,26 +37,24 @@ class TabBarController: UITabBarController {
     
     func refreshData() {
         print("Refresh")
-//        ParseClient.sharedInstance.studentLocations(
-
+        ParseClient.sharedInstance.studentLocations({ (success, errorString) in
+            guard success else {
+                self.alertUser(message: UIText.DataError, title: nil)
+                NSLog(errorString ?? "")
+                return
+            }
+        })
     }
     
-    func displayYESNOAlert(message message: String, title: String, yes: () -> Void, no: () -> Void) {
+    func alertUser(message message: String, title: String?) {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .Alert)
         
-        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel) { (action) in
-            no()
-        }
+        let dismissAction = UIAlertAction(title: "Dismiss", style: .Default, handler: nil)
         
-        let okAction = UIAlertAction(title: "OK", style: .Default) { (action) in
-            yes()
-        }
-        
-        alertController.addAction(cancelAction)
-        alertController.addAction(okAction)
+        alertController.addAction(dismissAction)
         
         presentViewController(alertController, animated: true) {
-            
+            NSLog(UIText.DataError)
         }
     }
 }
