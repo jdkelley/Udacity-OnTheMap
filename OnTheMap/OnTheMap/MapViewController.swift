@@ -31,6 +31,7 @@ class MapViewController : UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         tabBarController?.tabBar.hidden = false
+        mapView.delegate = self
         addAnnotations()
     }
     
@@ -71,6 +72,7 @@ extension MapViewController : MKMapViewDelegate {
             guard   let urlString = view.annotation?.subtitle,
                     let string = urlString,
                     let url = NSURL(string: string) else {
+                        print("url?: \(view.annotation)")
                 return
             }
             url.openInSafari()
