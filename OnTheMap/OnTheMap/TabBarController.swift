@@ -43,6 +43,7 @@ class TabBarController: UITabBarController {
                 NSLog(errorString ?? "")
                 return
             }
+            print("Action Completed")
         })
     }
     

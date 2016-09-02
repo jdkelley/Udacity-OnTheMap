@@ -13,11 +13,7 @@ class ListViewController : UIViewController {
     // MARK: - Properties
     @IBOutlet weak var tableView: UITableView!
     
-    var data = StudentDataSource.sharedInstance.students {
-        didSet {
-            tableView.reloadData()
-        }
-    }
+    var data = StudentDataSource.sharedInstance.students
     
     // MARK: Outlets
     
@@ -26,6 +22,9 @@ class ListViewController : UIViewController {
     // MARK: - View Controller Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        StudentDataSource.sharedInstance.dataUpdatedMap = dataUpdated
+        
         self.tabBarController?.tabBar.hidden = false
         tableView.delegate = self
         tableView.dataSource = StudentDataSource.sharedInstance
@@ -34,6 +33,12 @@ class ListViewController : UIViewController {
     
     // MARK: - Custom Methods
     
+    func dataUpdated() {
+        UI.performUIUpdate {
+            self.tableView.reloadData()
+            print("update called from data source")
+        }
+    }
 }
 
 extension ListViewController : UITableViewDelegate {

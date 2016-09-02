@@ -13,13 +13,7 @@ class MapViewController : UIViewController {
     
     // MARK: - Properties
     
-    var data = StudentDataSource.sharedInstance.annotations {
-        didSet {
-            removeAllAnnotations()
-            addAnnotations()
-        }
-    }
-
+    var data = StudentDataSource.sharedInstance.annotations
     
     // MARK: Outlets
     
@@ -30,6 +24,9 @@ class MapViewController : UIViewController {
     // MARK: - View Controller Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        StudentDataSource.sharedInstance.dataUpdatedMap = dataUpdated
+        
         tabBarController?.tabBar.hidden = false
         mapView.delegate = self
         addAnnotations()
@@ -46,6 +43,13 @@ class MapViewController : UIViewController {
         mapView.removeAnnotations(annotations)
     }
     
+    func dataUpdated() {
+        UI.performUIUpdate { 
+            self.removeAllAnnotations()
+            self.addAnnotations()
+            print("update called from data source")
+        }
+    }
 }
 
 extension MapViewController : MKMapViewDelegate {

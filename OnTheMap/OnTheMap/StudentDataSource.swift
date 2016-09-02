@@ -15,6 +15,9 @@ class StudentDataSource : NSObject {
     static let sharedInstance = StudentDataSource()
     private override init() {}
     
+    var dataUpdatedMap: (() -> Void)?
+    var dataUpdatedTable: (() -> Void)?
+    
     // MARK: Properties
     var students = [StudentLocation]() {
         didSet {
@@ -30,6 +33,8 @@ class StudentDataSource : NSObject {
 extension StudentDataSource {
     func setAnnotationsWith(students: [StudentLocation]) {
         annotations = MKPointAnnotation.annotationsFrom(students)
+        dataUpdatedMap?()
+        dataUpdatedTable?()
     }
     
     func clearMapData() {
