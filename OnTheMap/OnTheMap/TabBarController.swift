@@ -14,8 +14,8 @@ class TabBarController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.navigationBarHidden = false
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: UINames.Logout, style: .Plain, target: self, action: #selector(logout))
-        navigationItem.title = UINames.OnTheMap
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: UIText.Logout, style: .Plain, target: self, action: #selector(logout))
+        navigationItem.title = UIText.OnTheMap
         let pin = UIBarButtonItem(image: UIImage(named: Images.pin), style: .Plain, target: self, action: #selector(pinLocation))
         let refresh = UIBarButtonItem(barButtonSystemItem: .Refresh, target: self, action: #selector(refreshData))
         navigationItem.rightBarButtonItems = [refresh, pin]
@@ -36,15 +36,15 @@ class TabBarController: UITabBarController {
 //            
 //        }
         if let postVC = storyboard?.instantiateViewControllerWithIdentifier(Identifiers.PostViewController) as? PostViewController {
-            
+            navigationController?.pushViewController(postVC, animated: true)
         }
     }
     
-    func pushTabBar() {
-        if let tbvc = storyboard?.instantiateViewControllerWithIdentifier(Identifiers.TabBarController) as? TabBarController {
-            navigationController?.pushViewController(tbvc, animated: true)
-        }
-    }
+//    func pushTabBar() {
+//        if let tbvc = storyboard?.instantiateViewControllerWithIdentifier(Identifiers.TabBarController) as? TabBarController {
+//            navigationController?.pushViewController(tbvc, animated: true)
+//        }
+//    }
     
     func refreshData() {
         print("Refresh")
