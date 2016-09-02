@@ -10,9 +10,6 @@ import UIKit
 
 extension NSURL {
     func openInSafari() {
-        let application = UIApplication.sharedApplication()
-        //if application.canOpenURL(self) {
-        application.openURL(self)
-        //}
+        UIApplication.sharedApplication().openURL(self)
     }
 }
