@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		96167AB21D53A03000A238D2 /* Reachable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96167AB11D53A03000A238D2 /* Reachable.swift */; };
 		96167AB61D5824D200A238D2 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96167AB51D5824D200A238D2 /* TabBarController.swift */; };
+		9616B5381D7872CA00366BF3 /* Roboto-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9616B5351D7872CA00366BF3 /* Roboto-Medium.ttf */; };
+		9616B5391D7872CA00366BF3 /* Roboto-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9616B5361D7872CA00366BF3 /* Roboto-Regular.ttf */; };
+		9616B53A1D7872CA00366BF3 /* Roboto-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9616B5371D7872CA00366BF3 /* Roboto-Thin.ttf */; };
 		9679D9F11D4FB8850044694B /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9679D9F01D4FB8850044694B /* Constants.swift */; };
 		9679D9F51D4FBA670044694B /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9679D9F41D4FBA670044694B /* MapViewController.swift */; };
 		9679D9F71D4FBA8B0044694B /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9679D9F61D4FBA8B0044694B /* ListViewController.swift */; };
@@ -66,6 +69,9 @@
 		78FEB5D73F163549086F1D6A /* Pods-OnTheMap.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OnTheMap.release.xcconfig"; path = "Pods/Target Support Files/Pods-OnTheMap/Pods-OnTheMap.release.xcconfig"; sourceTree = "<group>"; };
 		96167AB11D53A03000A238D2 /* Reachable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachable.swift; sourceTree = "<group>"; };
 		96167AB51D5824D200A238D2 /* TabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
+		9616B5351D7872CA00366BF3 /* Roboto-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Medium.ttf"; sourceTree = "<group>"; };
+		9616B5361D7872CA00366BF3 /* Roboto-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Regular.ttf"; sourceTree = "<group>"; };
+		9616B5371D7872CA00366BF3 /* Roboto-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Thin.ttf"; sourceTree = "<group>"; };
 		9679D9F01D4FB8850044694B /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		9679D9F41D4FBA670044694B /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		9679D9F61D4FBA8B0044694B /* ListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
@@ -145,6 +151,16 @@
 				0800F1B5482284CDF009981F /* Pods_OnTheMapUITests.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		9616B5341D7872BD00366BF3 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				9616B5351D7872CA00366BF3 /* Roboto-Medium.ttf */,
+				9616B5361D7872CA00366BF3 /* Roboto-Regular.ttf */,
+				9616B5371D7872CA00366BF3 /* Roboto-Thin.ttf */,
+			);
+			name = Fonts;
 			sourceTree = "<group>";
 		};
 		968484A91D37E34C0011D3AE = {
@@ -272,6 +288,7 @@
 		968485041D42B2960011D3AE /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				9616B5341D7872BD00366BF3 /* Fonts */,
 				968484BE1D37E34C0011D3AE /* LaunchScreen.storyboard */,
 				968484B91D37E34C0011D3AE /* Main.storyboard */,
 				968484BC1D37E34C0011D3AE /* Assets.xcassets */,
@@ -404,7 +421,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9616B5381D7872CA00366BF3 /* Roboto-Medium.ttf in Resources */,
 				968484C01D37E34C0011D3AE /* LaunchScreen.storyboard in Resources */,
+				9616B53A1D7872CA00366BF3 /* Roboto-Thin.ttf in Resources */,
+				9616B5391D7872CA00366BF3 /* Roboto-Regular.ttf in Resources */,
 				968484BD1D37E34C0011D3AE /* Assets.xcassets in Resources */,
 				968484BB1D37E34C0011D3AE /* Main.storyboard in Resources */,
 			);
