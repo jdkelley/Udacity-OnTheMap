@@ -1,5 +1,5 @@
 //
-//  UIColor.swift
+//  Color.swift
 //  OnTheMap
 //
 //  Created by Joshua Kelley on 7/25/16.
@@ -8,8 +8,8 @@
 
 import UIKit
 
-// Colors defined for On The Map.
-extension UIColor {
+/// Colors defined for On The Map.
+struct Colors {
     
     /// Various Udacity Oranges.
     struct UOrange {
