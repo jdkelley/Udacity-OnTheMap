@@ -30,21 +30,10 @@ class TabBarController: UITabBarController {
     
     func pinLocation() {
         print("Pin Pressed")
-//        if UdacityClient.sharedInstance.account.hasPreviousUpload {
-//            displayYESNOAlert(message: "", title: "", yes: <#T##() -> Void#>, no: {} )
-//        } else {
-//            
-//        }
         if let postVC = storyboard?.instantiateViewControllerWithIdentifier(Identifiers.PostViewController) as? PostViewController {
             navigationController?.pushViewController(postVC, animated: true)
         }
     }
-    
-//    func pushTabBar() {
-//        if let tbvc = storyboard?.instantiateViewControllerWithIdentifier(Identifiers.TabBarController) as? TabBarController {
-//            navigationController?.pushViewController(tbvc, animated: true)
-//        }
-//    }
     
     func refreshData() {
         print("Refresh")

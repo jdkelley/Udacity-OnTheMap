@@ -53,6 +53,8 @@ class PostViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        navigationController?.navigationBarHidden = true
+        
         cancelButton.layer.cornerRadius = 5.0
         findButton.layer.cornerRadius = 5.0
         findButton.setTitle(UIText.FindButton, forState: .Normal)
@@ -60,7 +62,12 @@ class PostViewController: UIViewController {
         
         urlTextField.hidden = true
         setTextFieldPlaceholders()
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
         
+        navigationController?.navigationBarHidden = false
     }
 
     // MARK: - Custom Methods

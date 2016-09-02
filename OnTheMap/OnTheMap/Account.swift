@@ -14,7 +14,7 @@ class Account {
     var lastName : String?
     var accountID : String?
     var isFacebookSession : Bool = false
-    var hasPreviousUpload : Bool = false
+    //var hasPreviousUpload : Bool = false
     
     func reset() {
         loggedin = false
@@ -22,6 +22,6 @@ class Account {
         lastName = nil
         accountID = nil
         isFacebookSession = false
-        hasPreviousUpload = false
+        //hasPreviousUpload = false
     }
 }

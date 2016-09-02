@@ -45,7 +45,7 @@ class LoginViewController: UIViewController {
                     return
                 }
 
-                ParseClient.sharedInstance.previousLocation(uniqueKey: id)
+//                ParseClient.sharedInstance.previousLocation(uniqueKey: id)
                 
                 UI.performUIUpdate {
                     self.spinner.stopAnimating()
@@ -167,7 +167,7 @@ extension LoginViewController : LoginButtonDelegate {
                         return
                     }
                     
-                    ParseClient.sharedInstance.previousLocation(uniqueKey: id)
+//                    ParseClient.sharedInstance.previousLocation(uniqueKey: id)
                 
                     
                     UI.performUIUpdate {
@@ -194,6 +194,7 @@ extension LoginViewController : LoginButtonDelegate {
     func loginButtonDidLogOut(loginButton: LoginButton) {
         NSLog("Logged out of facebook successfully!")
 //        UdacityClient.sharedInstance.logout()
+        NSLog("Facebook SDK Reports It has Logged out.")
     }
     
     func pushTabBar() {
