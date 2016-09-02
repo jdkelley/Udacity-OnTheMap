@@ -80,41 +80,7 @@ class ParseClient {
         task.resume()
         return task
     }
-    
-    // MARK: PUT
-    
-    func taskForPUT(method: String, jsonBody: String, completionHandlerForPUT: (result: AnyObject?, error: NSError?) -> Void) -> NSURLSessionDataTask {
-        let request = requestWith(url: parseURLFrom(parameters: [:], withPathExtension: method), method: .PUT)
-        request.addValue(HeaderValue.ApplicationJSON, forHTTPHeaderField: HeaderKey.ContentType)
-        request.HTTPBody = jsonBody.dataUsingEncoding(NSUTF8StringEncoding)
-        let task = NSURLSession.sharedSession().dataTaskWithRequest(request) { (data, response, error) in
-            func sendError(error: String){
-                NSLog(error)
-                let userInfo = [NSLocalizedDescriptionKey : error]
-                completionHandlerForPUT(result: nil, error: NSError(domain: "taskForPUT", code: 1, userInfo: userInfo))
-            }
-            
-            
-            guard error == nil else {
-                sendError("There was an error with your request: \(error)")
-                return
-            }
-            
-            guard let statusCode = (response as? NSHTTPURLResponse)?.statusCode where statusCode >= 200 && statusCode < 300 else {
-                sendError("Your request returned a status code other than 2xx!")
-                return
-            }
-            
-            guard let data = data else {
-                sendError("No data was returned with your request!")
-                return
-            }
-            self.convertDataWithCompletionHandler(data: data, completionHandlerForConvertData: completionHandlerForPUT)
-        }
-        task.resume()
-        return task
-    }
-    
+        
     // MARK: - Helpers
     
     private func parseURLFrom(parameters parameters: [String : AnyObject], withPathExtension: String? = nil) -> NSURL {
