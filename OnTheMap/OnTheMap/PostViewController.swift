@@ -55,6 +55,7 @@ class PostViewController: UIViewController {
         
         cancelButton.layer.cornerRadius = 5.0
         findButton.layer.cornerRadius = 5.0
+        findButton.setTitle(UIText.FindButton, forState: .Normal)
         
         
         urlTextField.hidden = true
@@ -78,25 +79,23 @@ class PostViewController: UIViewController {
     }
     
     private func submit() {
+        
+        // Make sure that urlTextField exists.
         guard urlTextField != nil else {
             return
         }
         
+        // unwrap the text in urlTextField
         guard let text = urlTextField.text else {
             return
         }
         
         url = text
         
-        
         guard postPin() else {
             // raise error box
             return
         }
-        
-        urlTextField.removeFromSuperview()
-        
-        
         navigationController?.popViewControllerAnimated(true)
     }
     
@@ -109,7 +108,7 @@ class PostViewController: UIViewController {
     // MARK: UI Methods
     
     private func changeInputStates() {
-        findButton.setTitle("Submit", forState: .Normal)
+        findButton.setTitle(UIText.SubmitButton, forState: .Normal)
         //let pointA = self.midView.frame.origin.y
         
         UIView.animateWithDuration(0.4, delay: 0.0, options: .BeginFromCurrentState, animations: {

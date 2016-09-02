@@ -19,9 +19,15 @@ struct Identifiers {
     static let TabBarController: String = "TabBarController"
 }
 
-struct UINames {
+struct UIText {
     static let Logout = "Logout"
     static let OnTheMap = "On The Map"
+    
+    static let EnterLocationPlaceholder = "Enter Your Location Here"
+    static let EnterLinkPlaceholder = "Enter a Link to Share Here"
+    
+    static let FindButton = "Find on the Map"
+    static let SubmitButton = "Submit"
 }
 
 struct Images {
