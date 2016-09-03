@@ -23,9 +23,16 @@ class TabBarController: UITabBarController {
     
     func logout() {
         print("Pressed Logout")
-        // logout
-        LoginManager().logOut()
-        navigationController?.popToRootViewControllerAnimated(true)
+        
+        if UdacityClient.sharedInstance.account.isFacebookSession {
+            LoginManager().logOut()
+        }
+        
+        UdacityClient.sharedInstance.deleteSessionInfo {
+            UI.performUIUpdate {
+                self.navigationController?.popToRootViewControllerAnimated(true)
+            }
+        }
     }
     
     func pinLocation() {
@@ -48,14 +55,16 @@ class TabBarController: UITabBarController {
     }
     
     func alertUser(message message: String, title: String?) {
-        let alertController = UIAlertController(title: title, message: message, preferredStyle: .Alert)
-        
-        let dismissAction = UIAlertAction(title: "Dismiss", style: .Default, handler: nil)
-        
-        alertController.addAction(dismissAction)
-        
-        presentViewController(alertController, animated: true) {
-            NSLog(UIText.DataError)
+        UI.performUIUpdate {
+            let alertController = UIAlertController(title: title, message: message, preferredStyle: .Alert)
+            
+            let dismissAction = UIAlertAction(title: "Dismiss", style: .Default, handler: nil)
+            
+            alertController.addAction(dismissAction)
+            
+            self.presentViewController(alertController, animated: true) {
+                NSLog(UIText.DataError)
+            }
         }
     }
 }
