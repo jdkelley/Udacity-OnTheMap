@@ -77,8 +77,8 @@ struct StudentLocation {
         object += "\"\(JSONKeys.lastName)\":\"\(lastName)\","
         object += "\"\(JSONKeys.mapString)\":\"\(mapString)\","
         object += "\"\(JSONKeys.mediaURL)\":\"\(mediaURL)\","
-        object += "\"\(JSONKeys.latitude)\":\"\(latitude)\","
-        object += "\"\(JSONKeys.longitude)\":\"\(longitude)\""
+        object += "\"\(JSONKeys.latitude)\":\(latitude),"
+        object += "\"\(JSONKeys.longitude)\":\(longitude)"
         return object + "}"
     }
 }
