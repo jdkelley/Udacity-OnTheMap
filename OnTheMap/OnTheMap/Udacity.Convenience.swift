@@ -10,6 +10,24 @@ import Foundation
 
 extension UdacityClient {
     
+    func deleteSessionInfo(completionHandler: (() -> Void)) {
+        NSLog("I am trying to delete the session info")
+        taskForDELETE(Methods.session) { (result, error) in
+            if let error = error {
+                NSLog("\(error)")
+            } else {
+                guard let json = result as? [String: AnyObject] else {
+                    NSLog("Logout failed. Could not delete Session Token")
+                    return
+                }
+                NSLog("Deleting Token: \(json)")
+                UdacityClient.sharedInstance.account.reset()
+                UdacityClient.sharedInstance.sessionID = nil
+                completionHandler()
+            }
+        }
+    }
+    
     func loginWithPassword(creds: (username: String, password: String), completionHandlerForLogin: (success: Bool, errorString: String?) -> Void) {
         taskForPOST(Methods.session, jsonBody: postBody(username: creds.username, password: creds.password)) { (result, error) in
             if let error = error {

@@ -66,6 +66,7 @@ extension ParseClient {
 
     struct JSONKeys {
         static let results = "results"
+        static let objectId = "objectId"
     }
     
     

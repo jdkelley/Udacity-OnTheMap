@@ -124,10 +124,11 @@ class UdacityClient {
                 return
             }
             
-            guard let _ = data?.subdataWithRange(NSMakeRange(5, data!.length - 5)) else {
+            guard let data = data?.subdataWithRange(NSMakeRange(5, data!.length - 5)) else {
                 sendError("No data was returned from your request.", code: .NoData)
                 return
             }
+            self.convertDataWithCompletionHandler(data: data, completionHandlerForConvertData: completionHandlerForDELETE)
         }
         
         task.resume()

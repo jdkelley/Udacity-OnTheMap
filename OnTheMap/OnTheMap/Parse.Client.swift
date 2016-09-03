@@ -67,6 +67,8 @@ class ParseClient {
             }
             
             guard let statusCode = (response as? NSHTTPURLResponse)?.statusCode where statusCode >= 200 && statusCode < 300 else {
+                let code = (response as? NSHTTPURLResponse)?.statusCode
+                print(NSString(data: data!, encoding: NSUTF8StringEncoding))
                 sendError("Your request returned a status code other than 2xx!")
                 return
             }
@@ -80,7 +82,7 @@ class ParseClient {
         task.resume()
         return task
     }
-        
+    
     // MARK: - Helpers
     
     private func parseURLFrom(parameters parameters: [String : AnyObject], withPathExtension: String? = nil) -> NSURL {
@@ -88,13 +90,15 @@ class ParseClient {
         components.scheme = Constants.apiScheme
         components.host = Constants.apiHost
         components.path = Constants.apiPath + (withPathExtension ?? "")
-        components.queryItems = [NSURLQueryItem]()
         
-        for (key, value) in parameters {
-            let queryItem = NSURLQueryItem(name: key, value: "\(value)")
-            components.queryItems!.append(queryItem)
+        if parameters.count > 0 {
+            components.queryItems = [NSURLQueryItem]()
+            
+            for (key, value) in parameters {
+                let queryItem = NSURLQueryItem(name: key, value: "\(value)")
+                components.queryItems!.append(queryItem)
+            }
         }
-        
         return components.URL!
     }
     
