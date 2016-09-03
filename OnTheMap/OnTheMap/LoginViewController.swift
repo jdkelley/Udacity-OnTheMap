@@ -79,6 +79,7 @@ class LoginViewController: UIViewController {
         loginButton.enabled = to
         emailTextField.enabled = to
         passwordTextField.enabled = to
+        fbButtonView.userInteractionEnabled = to
     }
     
     @IBAction func signUp(sender: UIButton) {
