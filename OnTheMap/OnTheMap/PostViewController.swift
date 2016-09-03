@@ -13,12 +13,15 @@ class PostViewController: UIViewController {
     
     // MARK: - Properties
     var location = ""
-    var url = ""
-
+    
+    var lat: Double?
+    var lon: Double?
+    
+    var geocoder = CLGeocoder()
     
     // MARK: Outlets
-    @IBOutlet weak var locationTextField: UITextField!
-    @IBOutlet weak var urlTextField: UITextField!
+    @IBOutlet weak var locationTextField: UITextField! { didSet { locationTextField.delegate = self } }
+    @IBOutlet weak var urlTextField: UITextField! { didSet { urlTextField.delegate = self } }
 
     @IBOutlet weak var findButton: UIButton!
     
@@ -32,8 +35,6 @@ class PostViewController: UIViewController {
     @IBOutlet weak var midView: UIView!
     @IBOutlet weak var buttonBar: UIView!
     
-    @IBOutlet weak var enterLocation: UITextField! { didSet { enterLocation.delegate = self } }
-    
     @IBOutlet weak var mapView: MKMapView! { didSet { mapView.delegate = self } }
     
     // MARK: Actions
@@ -44,7 +45,11 @@ class PostViewController: UIViewController {
     
     @IBAction func submitButtonPressed(sender: AnyObject) {
         if locationTextField != nil {
-            findOnTheMap() 
+            findOnTheMap()
+            return
+        }
+        if urlTextField != nil {
+            submit()
         }
     }
     
@@ -67,21 +72,55 @@ class PostViewController: UIViewController {
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
         
+        // Add the navigation bar back to it is there when we get back to the tabbarviewcontroller.
         navigationController?.navigationBarHidden = false
     }
 
     // MARK: - Custom Methods
     
     private func findOnTheMap() {
+        
+        // Make sure that locationTextField exists.
         guard locationTextField != nil else {
             return
         }
         
+        // Unwrap the text in locationTextField.
         guard let text = locationTextField.text else {
             return
         }
         
         location = text
+        geocoder.geocodeAddressString(text) { (places, error) in
+            guard error == nil else {
+                UI.performUIUpdate{
+                    self.alertUser(message: "Geocoder failed to parse the given location string.")
+                }
+                return
+            }
+            
+            guard let placemarks = places where placemarks.count > 0 else {
+                UI.performUIUpdate{
+                    self.alertUser(message: "Geocoder failed to find location [0].")
+                }
+                return
+            }
+            
+            UI.performUIUpdate{
+                let place = placemarks[0]
+                guard let coordinate = place.location?.coordinate else {
+                    self.alertUser(message: "Geocoder failed to find location [1].")
+                    return
+                }
+                self.lat = coordinate.latitude
+                self.lon = coordinate.longitude
+                
+                let annotation = MKPointAnnotation()
+                annotation.coordinate = coordinate
+                
+                self.mapView.addAnnotation(annotation)
+            }
+        }
         changeInputStates()
     }
     
@@ -97,26 +136,30 @@ class PostViewController: UIViewController {
             return
         }
         
-        url = text
-        
-        guard postPin() else {
-            // raise error box
+        guard let lat = lat,
+              let lon = lon
+        else {
+            UI.performUIUpdate{
+                self.alertUser(message: "Geocoder failed to find location [2].")
+            }
             return
         }
-        navigationController?.popViewControllerAnimated(true)
-    }
-    
-    private func postPin() -> Bool {
-        // post to Parse
         
-        return false
+        ParseClient.sharedInstance.postNewLocation(mediaURL: text, mapString: location, lat: lat, long: lon) { (errorString) in
+            UI.performUIUpdate{
+                guard errorString == nil else {
+                    self.alertUser(message: "Failed to post your pin.")
+                    return
+                }
+                self.navigationController?.popViewControllerAnimated(true)
+            }
+        }
     }
     
     // MARK: UI Methods
     
     private func changeInputStates() {
         findButton.setTitle(UIText.SubmitButton, forState: .Normal)
-        //let pointA = self.midView.frame.origin.y
         
         UIView.animateWithDuration(0.4, delay: 0.0, options: .BeginFromCurrentState, animations: {
             self.buttonBar.backgroundColor = Colors.barGray
@@ -147,18 +190,32 @@ class PostViewController: UIViewController {
         urlTextField.attributedPlaceholder = NSAttributedString(string: UIText.EnterLinkPlaceholder, attributes: [ NSForegroundColorAttributeName: Colors.placeholderWhite ])
         locationTextField.attributedPlaceholder = NSAttributedString(string: UIText.EnterLocationPlaceholder, attributes: [ NSForegroundColorAttributeName: Colors.placeholderWhite ])
     }
+    
+    private func alertUser(message message: String, title: String? = nil) {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .Alert)
+        
+        let dismissAction = UIAlertAction(title: "Dismiss", style: .Default, handler: nil)
+        
+        alertController.addAction(dismissAction)
+        
+        presentViewController(alertController, animated: true) {
+            NSLog((title ?? "") + message)
+        }
+    }
 }
 
 // MARK: - UI Text Field Delegate
 
 extension PostViewController : UITextFieldDelegate {
     func textFieldShouldReturn(textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        if textField == locationTextField {
+        
+        if locationTextField != nil && textField == locationTextField {
+            textField.resignFirstResponder()
             findOnTheMap()
             return true
         }
         if textField == urlTextField {
+            textField.resignFirstResponder()
             submit()
             return true
         }
@@ -175,5 +232,20 @@ extension PostViewController : UITextFieldDelegate {
 
 extension PostViewController : MKMapViewDelegate {
     
-    
+    func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
+        let reuseId = "pin"
+        
+        var pinView = mapView.dequeueReusableAnnotationViewWithIdentifier(reuseId)
+        
+        if pinView == nil {
+            pinView = MKAnnotationView(annotation: annotation, reuseIdentifier: reuseId)
+            pinView?.canShowCallout = true
+            pinView?.image = UIImage(named: Images.mappin)
+        }
+        else {
+            pinView?.annotation = annotation
+        }
+        
+        return pinView
+    }
 }
