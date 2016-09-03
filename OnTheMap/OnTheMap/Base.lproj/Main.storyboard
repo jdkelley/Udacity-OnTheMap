@@ -339,6 +339,9 @@
                                     <constraint firstItem="rMm-ED-nxy" firstAttribute="centerX" secondItem="OWz-g6-cpw" secondAttribute="centerX" id="pzc-p7-VBS"/>
                                 </constraints>
                             </view>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="P7T-sq-GNi">
+                                <rect key="frame" x="290" y="290" width="20" height="20"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" red="0.85098039219999999" green="0.85098039219999999" blue="0.83529411760000005" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
@@ -352,8 +355,10 @@
                             <constraint firstAttribute="trailing" secondItem="OWz-g6-cpw" secondAttribute="trailing" id="VW5-FN-2XT"/>
                             <constraint firstItem="zjH-OT-CtH" firstAttribute="height" secondItem="7DP-0L-vQV" secondAttribute="height" multiplier="0.27" id="VeR-T6-l7v"/>
                             <constraint firstItem="icX-57-R3g" firstAttribute="top" secondItem="zjH-OT-CtH" secondAttribute="bottom" id="ViU-HE-ZqW"/>
+                            <constraint firstItem="P7T-sq-GNi" firstAttribute="centerY" secondItem="7DP-0L-vQV" secondAttribute="centerY" id="Wby-qY-PXf"/>
                             <constraint firstAttribute="trailing" secondItem="zjH-OT-CtH" secondAttribute="trailing" id="WuH-aK-2AH"/>
                             <constraint firstItem="U8i-AM-d37" firstAttribute="top" secondItem="pz2-kE-lae" secondAttribute="bottom" id="X6s-Qz-xB5"/>
+                            <constraint firstItem="P7T-sq-GNi" firstAttribute="centerX" secondItem="7DP-0L-vQV" secondAttribute="centerX" id="m3W-yM-P2P"/>
                             <constraint firstItem="zjH-OT-CtH" firstAttribute="top" secondItem="7DP-0L-vQV" secondAttribute="top" id="mby-BC-3kJ"/>
                             <constraint firstAttribute="trailing" secondItem="icX-57-R3g" secondAttribute="trailing" id="mkf-cn-NIJ"/>
                             <constraint firstAttribute="trailing" secondItem="pz2-kE-lae" secondAttribute="trailing" id="tQx-JU-vMA"/>
@@ -370,6 +375,7 @@
                         <outlet property="mapView" destination="pz2-kE-lae" id="4I8-MJ-ok2"/>
                         <outlet property="midLabel" destination="xCu-c2-oE1" id="Z1l-r7-gjh"/>
                         <outlet property="midView" destination="icX-57-R3g" id="Tyv-zI-Fv3"/>
+                        <outlet property="spinner" destination="P7T-sq-GNi" id="e5w-yU-h4k"/>
                         <outlet property="topBar" destination="zjH-OT-CtH" id="RO2-hE-i9N"/>
                         <outlet property="topLabel" destination="LQh-9D-owD" id="h9t-6E-2Sj"/>
                         <outlet property="urlTextField" destination="dHI-Xg-Xe5" id="KgG-RJ-Vn3"/>

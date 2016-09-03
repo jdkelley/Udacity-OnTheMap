@@ -19,7 +19,9 @@ class PostViewController: UIViewController {
     
     var geocoder = CLGeocoder()
     
-    // MARK: Outlets
+     // MARK: Outlets
+    @IBOutlet weak var spinner: UIActivityIndicatorView!
+   
     @IBOutlet weak var locationTextField: UITextField! { didSet { locationTextField.delegate = self } }
     @IBOutlet weak var urlTextField: UITextField! { didSet { urlTextField.delegate = self } }
 
@@ -44,6 +46,7 @@ class PostViewController: UIViewController {
     }
     
     @IBAction func submitButtonPressed(sender: AnyObject) {
+        spinner.startAnimating()
         if locationTextField != nil {
             findOnTheMap()
             return
@@ -67,6 +70,13 @@ class PostViewController: UIViewController {
         
         urlTextField.hidden = true
         setTextFieldPlaceholders()
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        spinner.hidesWhenStopped = true
+        spinner.stopAnimating()
     }
     
     override func viewWillDisappear(animated: Bool) {
@@ -183,6 +193,9 @@ class PostViewController: UIViewController {
             self.bottomLabel.removeFromSuperview()
             self.midLabel.removeFromSuperview()
             self.topLabel.removeFromSuperview()
+            UI.performUIUpdate {
+                self.spinner.stopAnimating()
+            }
         }
     }
     
@@ -192,6 +205,10 @@ class PostViewController: UIViewController {
     }
     
     private func alertUser(message message: String, title: String? = nil) {
+        UI.performUIUpdate {
+            self.spinner.stopAnimating()
+        }
+        
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .Alert)
         
         let dismissAction = UIAlertAction(title: "Dismiss", style: .Default, handler: nil)
