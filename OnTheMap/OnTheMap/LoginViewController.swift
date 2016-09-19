@@ -26,9 +26,7 @@ class LoginViewController: UIViewController {
         guard   let email = emailTextField.text,
                 let pw = passwordTextField.text
         else {
-                // pulse and warn user
-                NSLog("no password")
-                return
+                return // no password.
         }
         spinner.startAnimating()
         enableUI(to: false)
@@ -40,12 +38,10 @@ class LoginViewController: UIViewController {
                 NSLog("First Name: \(UdacityClient.sharedInstance.account.firstName)")
                 NSLog("Last Name: \(UdacityClient.sharedInstance.account.lastName)")
                 
-                guard let id = UdacityClient.sharedInstance.account.accountID else {
+                guard let _ = UdacityClient.sharedInstance.account.accountID else {
                     NSLog("AccountID Not Found!")
                     return
                 }
-
-//                ParseClient.sharedInstance.previousLocation(uniqueKey: id)
                 
                 UI.performUIUpdate {
                     self.spinner.stopAnimating()
@@ -163,13 +159,10 @@ extension LoginViewController : LoginButtonDelegate {
                     NSLog("First Name: \(UdacityClient.sharedInstance.account.firstName)")
                     NSLog("Last Name: \(UdacityClient.sharedInstance.account.lastName)")
                     
-                    guard let id = UdacityClient.sharedInstance.account.accountID else {
+                    guard let _ = UdacityClient.sharedInstance.account.accountID else {
                         NSLog("AccountID Not Found!")
                         return
                     }
-                    
-//                    ParseClient.sharedInstance.previousLocation(uniqueKey: id)
-                
                     
                     UI.performUIUpdate {
                         self.spinner.stopAnimating()
