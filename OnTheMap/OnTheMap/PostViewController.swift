@@ -45,7 +45,6 @@ class PostViewController: UIViewController {
     
     @IBAction func cancelled(sender: AnyObject) {
         presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
-        //navigationController?.popViewControllerAnimated(true)
     }
     
     @IBAction func submitButtonPressed(sender: AnyObject) {
@@ -181,8 +180,6 @@ class PostViewController: UIViewController {
                         pvc.refreshData()
                     }
                 }
-                
-                //self.navigationController?.popViewControllerAnimated(true)
             }
         }
     }
@@ -217,17 +214,6 @@ class PostViewController: UIViewController {
             UI.performUIUpdate {
                 self.spinner.stopAnimating()
             }
-            
-            // Set region
-            
-//            guard let region = self.region
-//            else {
-//                UI.performUIUpdate{
-//                    self.alertUser(message: "Geocoder failed to find location [3].")
-//                }
-//                return
-//            }
-
             
             UI.performUIUpdate {
                 self.mapView.setRegion(self.region ?? MKCoordinateRegionMakeWithDistance(CLLocationCoordinate2D(latitude: Double(self.mapView!.center.y), longitude: Double(self.mapView!.center.x)), 5000.0, 5000.0), animated: true)
