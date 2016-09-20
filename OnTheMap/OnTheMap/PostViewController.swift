@@ -48,13 +48,15 @@ class PostViewController: UIViewController {
     }
     
     @IBAction func submitButtonPressed(sender: AnyObject) {
-        spinner.startAnimating()
-        if locationTextField != nil {
-            findOnTheMap()
-            return
-        }
-        if urlTextField != nil {
-            submit()
+        UI.performUIUpdate { 
+            self.spinner.startAnimating()
+            if self.locationTextField != nil {
+                self.findOnTheMap()
+                return
+            }
+            if self.urlTextField != nil {
+                self.submit()
+            }
         }
     }
     
@@ -76,9 +78,10 @@ class PostViewController: UIViewController {
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        
-        spinner.hidesWhenStopped = true
-        spinner.stopAnimating()
+        UI.performUIUpdate { 
+            self.spinner.hidesWhenStopped = true
+            self.spinner.stopAnimating()
+        }
     }
     
     override func viewWillDisappear(animated: Bool) {
@@ -229,16 +232,16 @@ class PostViewController: UIViewController {
     private func alertUser(message message: String, title: String? = nil) {
         UI.performUIUpdate {
             self.spinner.stopAnimating()
-        }
         
-        let alertController = UIAlertController(title: title, message: message, preferredStyle: .Alert)
-        
-        let dismissAction = UIAlertAction(title: "Dismiss", style: .Default, handler: nil)
-        
-        alertController.addAction(dismissAction)
-        
-        presentViewController(alertController, animated: true) {
-            NSLog((title ?? "") + message)
+            let alertController = UIAlertController(title: title, message: message, preferredStyle: .Alert)
+            
+            let dismissAction = UIAlertAction(title: "Dismiss", style: .Default, handler: nil)
+            
+            alertController.addAction(dismissAction)
+            
+            self.presentViewController(alertController, animated: true) {
+                NSLog((title ?? "") + message)
+            }
         }
     }
 }

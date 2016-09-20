@@ -36,8 +36,10 @@ class LoginViewController: UIViewController {
             
             return // no password.
         }
-        spinner.startAnimating()
-        enableUI(to: false)
+        UI.performUIUpdate { 
+            self.spinner.startAnimating()
+            self.enableUI(to: false)
+        }
         UdacityClient.sharedInstance.loginWithPassword((email, pw)) { (success, errorString) in
             
             if success {
@@ -116,14 +118,17 @@ class LoginViewController: UIViewController {
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        navigationController?.navigationBarHidden = true
         
-        spinner.hidesWhenStopped = true
-        spinner.stopAnimating()
-        setTextFieldPlaceholders()
-        UITextField.padMultipleTextFields(emailTextField, passwordTextField)
-        
-        fbButtonView.addSubview(fbbutton)
+        UI.performUIUpdate { 
+            navigationController?.navigationBarHidden = true
+            
+            spinner.hidesWhenStopped = true
+            spinner.stopAnimating()
+            setTextFieldPlaceholders()
+            UITextField.padMultipleTextFields(emailTextField, passwordTextField)
+            
+            fbButtonView.addSubview(fbbutton)
+        }
     }
     
     override func viewDidAppear(animated: Bool) {
