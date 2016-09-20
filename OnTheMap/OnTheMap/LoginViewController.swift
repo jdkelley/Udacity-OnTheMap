@@ -120,14 +120,14 @@ class LoginViewController: UIViewController {
         super.viewWillAppear(animated)
         
         UI.performUIUpdate { 
-            navigationController?.navigationBarHidden = true
+            self.navigationController?.navigationBarHidden = true
             
-            spinner.hidesWhenStopped = true
-            spinner.stopAnimating()
-            setTextFieldPlaceholders()
-            UITextField.padMultipleTextFields(emailTextField, passwordTextField)
+            self.spinner.hidesWhenStopped = true
+            self.spinner.stopAnimating()
+            self.setTextFieldPlaceholders()
+            UITextField.padMultipleTextFields(self.emailTextField, self.passwordTextField)
             
-            fbButtonView.addSubview(fbbutton)
+            self.fbButtonView.addSubview(self.fbbutton)
         }
     }
     
