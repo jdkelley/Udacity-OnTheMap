@@ -44,7 +44,8 @@ class PostViewController: UIViewController {
     // MARK: Actions
     
     @IBAction func cancelled(sender: AnyObject) {
-        navigationController?.popViewControllerAnimated(true)
+        presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
+        //navigationController?.popViewControllerAnimated(true)
     }
     
     @IBAction func submitButtonPressed(sender: AnyObject) {
@@ -175,7 +176,13 @@ class PostViewController: UIViewController {
                     self.alertUser(message: "Failed to post your pin.")
                     return
                 }
-                self.navigationController?.popViewControllerAnimated(true)
+                if let pvc = self.presentingViewController as? TabBarController {
+                    pvc.dismissViewControllerAnimated(true) {
+                        pvc.refreshData()
+                    }
+                }
+                
+                //self.navigationController?.popViewControllerAnimated(true)
             }
         }
     }
@@ -185,7 +192,7 @@ class PostViewController: UIViewController {
     private func changeInputStates() {
         findButton.setTitle(UIText.SubmitButton, forState: .Normal)
         
-        UIView.animateWithDuration(0.4, delay: 0.0, options: .BeginFromCurrentState, animations: {
+        UIView.animateWithDuration(0.45, delay: 0.05, options: .BeginFromCurrentState, animations: {
             self.buttonBar.backgroundColor = Colors.barGray
             self.midView.transform = CGAffineTransformMakeTranslation(0, -self.midView.frame.height)
             self.bottomLabel.alpha = 0.0
@@ -213,17 +220,17 @@ class PostViewController: UIViewController {
             
             // Set region
             
-            guard let region = self.region
-            else {
-                UI.performUIUpdate{
-                    self.alertUser(message: "Geocoder failed to find location [3].")
-                }
-                return
-            }
+//            guard let region = self.region
+//            else {
+//                UI.performUIUpdate{
+//                    self.alertUser(message: "Geocoder failed to find location [3].")
+//                }
+//                return
+//            }
 
             
             UI.performUIUpdate {
-                self.mapView.setRegion(region, animated: true)
+                self.mapView.setRegion(self.region ?? MKCoordinateRegionMakeWithDistance(CLLocationCoordinate2D(latitude: Double(self.mapView!.center.y), longitude: Double(self.mapView!.center.x)), 5000.0, 5000.0), animated: true)
             }
         }
     }

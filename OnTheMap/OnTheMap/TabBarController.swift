@@ -38,7 +38,8 @@ class TabBarController: UITabBarController {
     func pinLocation() {
         print("Pin Pressed")
         if let postVC = storyboard?.instantiateViewControllerWithIdentifier(Identifiers.PostViewController) as? PostViewController {
-            navigationController?.pushViewController(postVC, animated: true)
+            presentViewController(postVC, animated: true, completion: nil)
+            //navigationController?.pushViewController(postVC, animated: true)
         }
     }
     
