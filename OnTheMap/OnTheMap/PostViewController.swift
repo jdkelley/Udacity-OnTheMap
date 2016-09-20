@@ -17,6 +17,7 @@ class PostViewController: UIViewController {
     
     var lat: Double?
     var lon: Double?
+    var region: MKCoordinateRegion?
     
     var geocoder = CLGeocoder()
     
@@ -117,20 +118,32 @@ class PostViewController: UIViewController {
                 return
             }
             
-            UI.performUIUpdate{
-                let place = placemarks[0]
-                guard let coordinate = place.location?.coordinate else {
+            
+            let place = placemarks[0]
+            guard let coordinate = place.location?.coordinate else {
+                UI.performUIUpdate{
                     self.alertUser(message: "Geocoder failed to find location [1].")
-                    return
                 }
-                self.lat = coordinate.latitude
-                self.lon = coordinate.longitude
-                
-                let annotation = MKPointAnnotation()
-                annotation.coordinate = coordinate
-                
+                return
+            }
+            
+            let latitude = coordinate.latitude
+            let longitude = coordinate.longitude
+            
+            
+            let coord = CLLocationCoordinate2DMake(CLLocationDegrees(latitude), CLLocationDegrees(longitude))
+            self.region = MKCoordinateRegionMakeWithDistance(coord, 5000.0, 5000.0)
+            
+            self.lat = latitude
+            self.lon = longitude
+            
+            let annotation = MKPointAnnotation()
+            annotation.coordinate = coordinate
+            
+            UI.performUIUpdate{
                 self.mapView.addAnnotation(annotation)
             }
+            
         }
         changeInputStates()
     }
@@ -196,6 +209,21 @@ class PostViewController: UIViewController {
             self.topLabel.removeFromSuperview()
             UI.performUIUpdate {
                 self.spinner.stopAnimating()
+            }
+            
+            // Set region
+            
+            guard let region = self.region
+            else {
+                UI.performUIUpdate{
+                    self.alertUser(message: "Geocoder failed to find location [3].")
+                }
+                return
+            }
+
+            
+            UI.performUIUpdate {
+                self.mapView.setRegion(region, animated: true)
             }
         }
     }
