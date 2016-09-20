@@ -20,7 +20,7 @@ extension ParseClient {
         taskForGET(Methods.StudentLocation, parameters: parameters) { (result, error) in
             if let error = error {
                 NSLog("Could not find locations: \(error)")
-                completionForLoginFlow?(success: false, errorString: "Could not find locations: \(error)")
+                completionForLoginFlow?(success: false, errorString: UdacityClient.LoginMessages.NoLocationsFound)
                 return
             } else {
                 guard let result = result else {

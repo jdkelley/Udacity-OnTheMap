@@ -35,7 +35,7 @@ extension UdacityClient {
                 if error.code == 403  {
                     completionHandlerForLogin(success: false, errorString:  LoginMessages.InvalidEmail )
                 } else {
-                    completionHandlerForLogin(success: false, errorString: "Login Failed (POST Session)")
+                    completionHandlerForLogin(success: false, errorString: LoginMessages.LoginFailedOnPost)
                 }
             } else {
                 self.getSessionInfo(result, completionHandlerForSession: completionHandlerForLogin)
@@ -50,7 +50,7 @@ extension UdacityClient {
                 if error.code == 403  {
                     completionHandlerForFBLogin(success: false, errorString:  LoginMessages.InvalidEmail )
                 } else {
-                    completionHandlerForFBLogin(success: false, errorString: "Login Failed (POST Session)")
+                    completionHandlerForFBLogin(success: false, errorString: LoginMessages.LoginFailedOnPost)
                 }
             } else {
                 self.getSessionInfo(result, completionHandlerForSession: completionHandlerForFBLogin)
@@ -90,7 +90,7 @@ extension UdacityClient {
         self.taskForGET(method, completionHandlerForGET: { (result, error) in
             if let _ = error {
                 NSLog("There was an error downloading the user info the the current user.")
-                completionForGetUserData(success: false, errorString: "There was an error downloading the user info the the current user.")
+                completionForGetUserData(success: false, errorString: LoginMessages.ErrorDownloadingUserInfo)
             } else {
                 if  let result = result as? [String: AnyObject],
                     let user = result[JSONKeys.user] as? [String: AnyObject],
@@ -100,12 +100,17 @@ extension UdacityClient {
                     self.account.lastName = last
                     
                     ParseClient.sharedInstance.studentLocations({ (success, errorString) in
-                        completionForGetUserData(success: success, errorString: nil)
+                        if success {
+                            completionForGetUserData(success: success, errorString: nil)
+                        } else {
+                            completionForGetUserData(success: false, errorString: errorString ?? "")
+                        }
+                        
                     })
                     
                 } else {
                     NSLog("There was an error downloading the user info the the current user.")
-                    completionForGetUserData(success: false, errorString: "There was an error downloading the user info the the current user.")
+                    completionForGetUserData(success: false, errorString: LoginMessages.ErrorDownloadingUserInfo)
                 }
             }
         })

@@ -23,10 +23,18 @@ class LoginViewController: UIViewController {
     
     @IBAction func loginWithPassword(sender: UIButton) {
         NSLog("pressed")
-        guard   let email = emailTextField.text,
-                let pw = passwordTextField.text
+        guard   let email = emailTextField.text where email != "",
+                let pw = passwordTextField.text where pw != ""
         else {
-                return // no password.
+            let alertController = UIAlertController(title: nil, message: "Must enter both a username and password.", preferredStyle: .Alert)
+            
+            let okayAction = UIAlertAction(title: "OK", style: .Default) { (action) in
+                print("okay pressed")
+            }
+            alertController.addAction(okayAction)
+            self.presentViewController(alertController, animated: true) {}
+            
+            return // no password.
         }
         spinner.startAnimating()
         enableUI(to: false)
@@ -52,7 +60,21 @@ class LoginViewController: UIViewController {
             } else {
                 UdacityClient.sharedInstance.account.loggedin = false
                 UI.performUIUpdate {
-                    let message = ((errorString ?? "") == UdacityClient.LoginMessages.InvalidEmail) ? UdacityClient.LoginMessages.InvalidEmail : "Failed to connect. Please verify your connection to the internet."
+                    //let message = ((errorString ?? "") == UdacityClient.LoginMessages.InvalidEmail) ? UdacityClient.LoginMessages.InvalidEmail : "Failed to connect. Please verify your connection to the internet."
+                    
+                    let message: String
+                    
+                    if (errorString ?? "") == UdacityClient.LoginMessages.InvalidEmail {
+                        message = UdacityClient.LoginMessages.InvalidEmail
+                    } else if (errorString ?? "") == UdacityClient.LoginMessages.ErrorDownloadingUserInfo {
+                        message = UdacityClient.LoginMessages.ErrorDownloadingUserInfo
+                    } else if (errorString ?? "") == UdacityClient.LoginMessages.NoLocationsFound {
+                        message = UdacityClient.LoginMessages.NoLocationsFound
+                    } else {
+                        message = "Oops! Something went wrong when we tried to log you in."
+                    }
+                    
+                    
                     let alertController = UIAlertController(title: nil, message: message, preferredStyle: .Alert)
                     
                     let okayAction = UIAlertAction(title: "OK", style: .Default) { (action) in

@@ -70,5 +70,8 @@ extension UdacityClient {
     
     struct LoginMessages {
         static let InvalidEmail = "Login Failed: Invalid credentials"
+        static let LoginFailedOnPost = "Login Failed (POST Session)"
+        static let ErrorDownloadingUserInfo = "There was an error downloading the user info the the current user."
+        static let NoLocationsFound = "Could not find student locations"
     }
 }
