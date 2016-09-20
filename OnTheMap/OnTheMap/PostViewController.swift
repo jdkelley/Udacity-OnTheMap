@@ -51,11 +51,22 @@ class PostViewController: UIViewController {
         UI.performUIUpdate { 
             self.spinner.startAnimating()
             if self.locationTextField != nil {
-                self.findOnTheMap()
-                return
+                if self.locationTextField.text != "" {
+                    print("finding")
+                    self.findOnTheMap()
+                    return
+                } else {
+                    self.alertUser(message: "Please enter a location.")
+                }
+                
             }
             if self.urlTextField != nil {
-                self.submit()
+                if self.urlTextField.text != "" {
+                    self.submit()
+                    print("submiting")
+                }else {
+                    self.alertUser(message: "Please enter a URL.")
+                }
             }
         }
     }
@@ -95,6 +106,8 @@ class PostViewController: UIViewController {
     
     private func findOnTheMap() {
         
+        enableUI(to: false)
+        
         // Make sure that locationTextField exists.
         guard locationTextField != nil else {
             return
@@ -111,6 +124,7 @@ class PostViewController: UIViewController {
                 UI.performUIUpdate{
                     self.alertUser(message: "Geocoder failed to parse the given location string.")
                 }
+                self.enableUI(to: true)
                 return
             }
             
@@ -118,6 +132,7 @@ class PostViewController: UIViewController {
                 UI.performUIUpdate{
                     self.alertUser(message: "Geocoder failed to find location [0].")
                 }
+                self.enableUI(to: true)
                 return
             }
             
@@ -127,6 +142,7 @@ class PostViewController: UIViewController {
                 UI.performUIUpdate{
                     self.alertUser(message: "Geocoder failed to find location [1].")
                 }
+                self.enableUI(to: true)
                 return
             }
             
@@ -189,8 +205,17 @@ class PostViewController: UIViewController {
     
     // MARK: UI Methods
     
+    private func enableUI(to to: Bool) {
+        UI.performUIUpdate { 
+            self.findButton.enabled = to
+        }
+    }
+    
     private func changeInputStates() {
-        findButton.setTitle(UIText.SubmitButton, forState: .Normal)
+        
+        UI.performUIUpdate { 
+            self.findButton.setTitle(UIText.SubmitButton, forState: .Normal)
+        }
         
         UIView.animateWithDuration(0.45, delay: 0.05, options: .BeginFromCurrentState, animations: {
             self.buttonBar.backgroundColor = Colors.barGray
@@ -221,6 +246,7 @@ class PostViewController: UIViewController {
             UI.performUIUpdate {
                 self.mapView.setRegion(self.region ?? MKCoordinateRegionMakeWithDistance(CLLocationCoordinate2D(latitude: Double(self.mapView!.center.y), longitude: Double(self.mapView!.center.x)), 5000.0, 5000.0), animated: true)
             }
+            self.enableUI(to: true)
         }
     }
     
