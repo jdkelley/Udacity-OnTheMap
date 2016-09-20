@@ -146,9 +146,9 @@ class PostViewController: UIViewController {
             UI.performUIUpdate{
                 self.mapView.addAnnotation(annotation)
             }
-            
+            self.changeInputStates()
         }
-        changeInputStates()
+        
     }
     
     private func submit() {
