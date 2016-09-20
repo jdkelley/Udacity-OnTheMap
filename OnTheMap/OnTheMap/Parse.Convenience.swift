@@ -10,46 +10,6 @@ import Foundation
 
 extension ParseClient {
     
-    // MARK: TODO
-    
-//    func previousLocation(uniqueKey uniqueKey: String) {
-//        let parameters: [String: AnyObject] = [
-//            ParameterKeys.Where: ParameterKeys.whereClause(uniqueKey)
-//        ]
-//        
-//        func completion(exists exists: Bool, errorString: String?) {
-//            if exists {
-//                NSLog("Previous Location Exists!")
-//                UdacityClient.sharedInstance.account.hasPreviousUpload = true
-//            } else {
-//                NSLog("Previous Location Does not exist!")
-//                UdacityClient.sharedInstance.account.hasPreviousUpload = false
-//            }
-//        }
-//        
-//        taskForGET(Methods.StudentLocation, parameters: parameters) { (result, error) in
-//            if let error = error {
-//                NSLog("error")
-//                completion(exists: false, errorString: "There was an error with the request: \(error)")
-//                return
-//            } else {
-//                guard let result = result else {
-//                    NSLog("Result was nil")
-//                    completion(exists: false, errorString: "No results were returned.")
-//                    return
-//                }
-//                
-//                guard let results = result[JSONKeys.results] as? [[String:AnyObject]] where results.count > 0 else {
-//                    NSLog("No previous locations for this user. \(result)")
-//                    completion(exists: false, errorString: "No previous locations for this user.")
-//                    return
-//                }
-//                NSLog("There was a previous location for this user. \(results)")
-//                completion(exists: true, errorString: nil)
-//            }
-//        }
-//    }
-    
     func studentLocations(completionForLoginFlow: ((success: Bool, errorString: String?) -> Void)? = nil, uiCompletion: (() -> Void)? = nil) {
         let parameters: [String: AnyObject] = [
             ParameterKeys.limit : 100,
